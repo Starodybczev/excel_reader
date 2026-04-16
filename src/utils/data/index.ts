@@ -1,0 +1,1 @@
+export { columnMap } from "./colums"
