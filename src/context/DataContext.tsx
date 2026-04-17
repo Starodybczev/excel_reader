@@ -12,8 +12,6 @@ interface EditConfigType {
 interface AssetsContextType {
     users: AssetsType[];
     setUsers: React.Dispatch<React.SetStateAction<AssetsType[]>>;
-    columns: FieldType[];
-    setColumns: Dispatch<SetStateAction<FieldType[]>>
     newRow: AssetRow;
     isUpdate: boolean;
     handleChangeValue: (e: ChangeEvent<HTMLInputElement>) => void
@@ -42,6 +40,16 @@ const RowData: AssetRow = {
 
 }
 
+
+export const defaultColumns: FieldType[] = [
+  { name: "name", placeholder: "add name", type: "text", label: "name" },
+  { name: "age", placeholder: "add age", type: "text", label: "age" },
+  { name: "images", type: "file", label: "images" },
+  { name: "beginning", placeholder: "add data begin", type: "text", label: "beginning" },
+  { name: "ending", placeholder: "add data ending", type: "text", label: "ending" },
+  { name: "group", placeholder: "add name group", type: "text", label: "group" }
+];
+
 const DataContext = createContext<AssetsContextType | undefined>(undefined)
 
 export function DataProvider({ children }: Props) {
@@ -49,14 +57,7 @@ export function DataProvider({ children }: Props) {
     const [newRow, setNewRow] = useState<AssetRow>(RowData);
     const [isUpdate, setIsUpdate] = useState<boolean>(false)
     const [editConfig, setEditConfig] = useState<EditConfigType | null>(null);
-    const [columns, setColumns] = useState<FieldType[]>([
-        { name: "name", placeholder: "add name", type: "text", label: "name" },
-        { name: "age", placeholder: "add age", type: "text", label: "age" },
-        { name: "images", type: "file", label: "iamges" },
-        { name: "beginning", placeholder: "add data begin", type: "text", label: "beginning" },
-        { name: "ending", placeholder: "add data ending", type: "text", label: "ending" },
-        { name: "group", placeholder: "add name group", type: "text", label: "group" }
-    ])
+
 
     const { handleUPloadImages, fileRef, handleReset } = rememberSelectImage({ setNewRow })
 
@@ -65,7 +66,7 @@ export function DataProvider({ children }: Props) {
         setNewRow((prev) => ({ ...prev, [name]: value }))
     }
 
-    const dataProps = { setColumns, handleChangeValue, columns, users, setUsers, newRow, isUpdate, setIsUpdate, handleReset, handleUPloadImages, fileRef, setNewRow, editConfig, setEditConfig }
+    const dataProps = { handleChangeValue, users, setUsers, newRow, isUpdate, setIsUpdate, handleReset, handleUPloadImages, fileRef, setNewRow, editConfig, setEditConfig }
 
     return (
         <DataContext.Provider value={{ ...dataProps }}>

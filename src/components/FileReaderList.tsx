@@ -1,10 +1,13 @@
 import { memo, useState, type ChangeEvent } from 'react'
 import { useExcelReader, type AssetRow } from '../utils'
+import type { FieldType } from './UsersList'
+import { defaultColumns } from '../context/DataContext'
 
 
 export type AssetsType = {
   id: string,
   name: string,
+  columns: FieldType[]
   rows: AssetRow[]
 }
 
@@ -30,6 +33,7 @@ function FileReaderList({DataUsers}: DataListProps) {
     const newAsset: AssetsType = {
       id: crypto.randomUUID(),
       name: file.name,
+      columns: defaultColumns,
       rows: rowWithInd
     }
 

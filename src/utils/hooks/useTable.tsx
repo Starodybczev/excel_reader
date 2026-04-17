@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { useDataContext } from '../../context/DataContext'
 import type { AssetRow } from './useExcelReader'
 import type { AssetsType } from '../../components/FileReaderList'
+import { useCurrentTable } from './useCurrentTable'
 
 interface updateProps {
     newRow: AssetRow
@@ -12,6 +13,7 @@ interface EditProps {
 }
 
 export default function useTable() {
+    const {currentTableId} = useCurrentTable()
     const {
         handleReset,
         setUsers,
@@ -44,23 +46,23 @@ export default function useTable() {
     }, [editConfig])
 
 
-    const handleAdd = useCallback(({newRow}: updateProps) => {
-        setUsers((prev) => {
-            if (!prev[0]) return prev;
-            return [
-                {
-                    ...prev[0],
-                    rows: [
-                        ...prev[0].rows,
-                        { ...newRow, id: crypto.randomUUID() }
-                    ]
-                },
-                ...prev.slice(1)
-            ]
-        })
-        handleReset()
-        setIsUpdate(false)
-    }, [editConfig, setUsers, handleReset, setIsUpdate, setEditConfig])
+const handleAdd = useCallback(({ newRow }: updateProps) => {
+    if (!currentTableId) return
+
+    setUsers((prev) =>
+      prev.map((file) =>
+        file.id === currentTableId
+          ? {
+              ...file,
+              rows: [...file.rows, { ...newRow, id: crypto.randomUUID() }],
+            }
+          : file
+      )
+    )
+
+    handleReset()
+    setIsUpdate(false)
+  }, [currentTableId, setUsers, handleReset, setIsUpdate])
 
 
     const handleDelete = useCallback((fileId: string, rowId: string) => {

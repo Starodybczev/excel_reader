@@ -1,24 +1,29 @@
 import { useCallback, useState } from 'react'
 import { useDataContext } from '../../context/DataContext'
+import { useCurrentTable } from '../hooks/useCurrentTable';
 
 export default function rememberDelColumn() {
     const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
-    const { setColumns, setUsers } = useDataContext()
+    const { setUsers } = useDataContext()
+    const {currentTableId} = useCurrentTable()
 
-    const handleDeleteColumns = useCallback(() => {
-        if (selectedColumns.length === 0) return;
+const handleDeleteColumns = useCallback(() => {
+    if (!currentTableId || selectedColumns.length === 0) return;
 
-        setColumns(prev => {
-            if (selectedColumns.length === prev.length) {
+    setUsers(prev =>
+        prev.map(file => {
+            if (file.id !== currentTableId) return file;
+
+            if (selectedColumns.length === file.columns.length) {
                 alert("Нельзя удалить все колонки");
-                return prev;
+                return file;
             }
-            return prev.filter(col => !selectedColumns.includes(col.name));
-        });
 
-        setUsers(prev =>
-            prev.map(file => ({
+            return {
                 ...file,
+                columns: file.columns.filter(
+                    col => !selectedColumns.includes(col.name)
+                ),
                 rows: file.rows.map(row => {
                     const newRow = { ...row };
 
@@ -28,11 +33,12 @@ export default function rememberDelColumn() {
 
                     return newRow;
                 })
-            }))
-        );
+            };
+        })
+    );
 
-        setSelectedColumns([]);
-    }, [setColumns, setUsers, selectedColumns])
+    setSelectedColumns([]);
+}, [currentTableId, selectedColumns, setUsers]);
 
     return { handleDeleteColumns, selectedColumns, setSelectedColumns }
 }

@@ -2,16 +2,17 @@ import { type Dispatch, type SetStateAction } from 'react'
 import Modal from '../utils/const/Modal'
 import type { FieldType } from './UsersList'
 import FilterColums from './FilterColums'
+import type { AssetsType } from './FileReaderList'
 
 interface FilterProps {
-    columns: FieldType[]
+    currentTable: AssetsType | null
     setVisibleColums: Dispatch<SetStateAction<string[]>>
     isOpen: boolean
     handleCloseModal: () => void
 }
 
-export default function FilterTable({ columns, setVisibleColums, isOpen, handleCloseModal }: FilterProps) {
-    const filterProps = { columns, setVisibleColums }
+export default function FilterTable({ currentTable, setVisibleColums, isOpen, handleCloseModal }: FilterProps) {
+    const filterProps = { currentTable, setVisibleColums }
     return (
         <Modal isOpen={isOpen} closeModal={handleCloseModal}>
             <FilterColums {...filterProps} />

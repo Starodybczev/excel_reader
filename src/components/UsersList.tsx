@@ -1,9 +1,10 @@
-import { memo, useCallback, useState, type ChangeEvent } from 'react'
-import FileReaderList from './FileReaderList'
+import { memo, useCallback, useEffect, useState, type ChangeEvent } from 'react'
 import AddDataFromTable from './AddDataFromTable'
 import { TableMap, useDownload } from '../utils'
 import { useDataContext } from '../context/DataContext'
 import Modals from './Modals'
+import { useCurrentTable } from '../utils/hooks/useCurrentTable'
+import { useNavigate } from 'react-router-dom'
 
 export type ColumnType = "text" | "number" | "file" | "link";
 
@@ -21,17 +22,55 @@ export interface filterProps {
 }
 
 function UsersList() {
-    const { users, setUsers, setNewRow, columns } = useDataContext()
+    const { users, setNewRow } = useDataContext()
+    const { currentTable } = useCurrentTable()
 
     const [filters, setFilters] = useState<filterProps | null>(null)
-    const [visibleColums, setVisibleColums] = useState<string[]>(columns.map((item) => item.name))
+    const [visibleColums, setVisibleColums] = useState<string[]>([])
     const [search, setSearch] = useState("")
-    const { ExportTOexcel } = useDownload()
-
+    const navigate = useNavigate()
 
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
+
+    const { ExportTOexcel } = useDownload({ currentTable })
+
+    useEffect(() =>{
+        if(users.length === 0 && !currentTable){
+            navigate("/")
+        }
+    }, [navigate, currentTable, users])
+
+    const options = users.map(({ name, id }) => {
+        return (
+            <div key={id}>
+                <option value={id}>{name}</option>
+            </div>
+        )
+    })
+
+    const handleChangeOption = (e: ChangeEvent<HTMLSelectElement>) => {
+        const tableID = e.target.value;
+        if(!tableID) return;
+        navigate(`/file/${tableID}`)
+    }
+
+
+    useEffect(() => {
+        if (!currentTable?.columns) return;
+
+        const nextVisible = currentTable.columns.map((col) => col.name);
+
+        setVisibleColums((prev) => {
+            const isSame =
+                prev.length === nextVisible.length &&
+                prev.every((item, index) => item === nextVisible[index]);
+
+            return isSame ? prev : nextVisible;
+        });
+    }, [currentTable?.columns]);
+
 
     const resetData = useCallback(() => {
         setNewRow({
@@ -43,18 +82,24 @@ function UsersList() {
         })
     }, [setNewRow])
 
-    const props = { search, columns, resetData }
+    const columns = { currentTable }
 
-    const filterProps = { columns, filters, visibleColums, setFilters, setVisibleColums }
+    const props = { search, ...columns, resetData }
+
+    const filterProps = { ...columns, filters, visibleColums, setFilters, setVisibleColums }
 
     return (
         <div>
-            <FileReaderList DataUsers={setUsers} />
-                {users.length > 0 && <Modals {...filterProps}/>}
             <div>
                 {users.length > 0 && <input type='text' onChange={handleSearch} />}
+                {users.length > 0 && <Modals {...filterProps} />}
+                {users.length > 0 &&
+                    <select value={currentTable?.id ?? ""} onChange={handleChangeOption}>
+                        {options}
+                    </select>
+                }
             </div>
-            <TableMap {...props}{...filterProps} />
+            <TableMap users={currentTable ? [currentTable] : []} {...props}{...filterProps} />
             <div style={{ display: "flex", gap: "10px" }}>
                 {users.length > 0 && <AddDataFromTable />}
                 {users.length > 0 && <button onClick={ExportTOexcel}>download</button>}

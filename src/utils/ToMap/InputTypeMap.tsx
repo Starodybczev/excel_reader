@@ -1,15 +1,15 @@
-import { useDataContext } from '../../context/DataContext'
+import { defaultColumns, useDataContext } from '../../context/DataContext'
 
 interface InputMapProps{
     visibleColums: string[]
 }
 export default function InputTypeMap({visibleColums}: InputMapProps) {
-    const { columns, newRow, handleChangeValue, isUpdate, fileRef, handleUPloadImages } = useDataContext()
-    const firstFileColumn = columns.find(col => col.type === "file");
-    const element = columns.filter(({name}) => visibleColums.includes(name)).map(({ type, name, placeholder }) => {
+    const { newRow, handleChangeValue, isUpdate, fileRef, handleUPloadImages } = useDataContext()
+    const firstFileColumn = defaultColumns.find(col => col.type === "file");
+    const element = defaultColumns.filter(({name}) => visibleColums.includes(name)).map(({ type, name, placeholder }) => {
         if (type === "file") {
             return (
-                <td>
+                <td key={name}>
                     {type === "file" &&
                         !(isUpdate && name === firstFileColumn?.name) && (
                             <input

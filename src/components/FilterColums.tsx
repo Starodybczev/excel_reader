@@ -1,13 +1,13 @@
 import { memo, useState, type Dispatch, type SetStateAction } from 'react'
-import type { FieldType } from './UsersList'
+import type { AssetsType } from './FileReaderList';
 
 interface FilterProps {
-    columns: FieldType[]
+    currentTable: AssetsType | null
     setVisibleColums: Dispatch<SetStateAction<string[]>>
 }
-function FilterColums({ columns, setVisibleColums }: FilterProps) {
-    const [selectedColumn, setSelectedColumn] = useState("");
-    const [visibleCols, setVisibleCols] = useState(columns.map(c => c.name));
+function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
+    const [selectedColumn, setSelectedColumn] = useState("all");
+    const [visibleCols, setVisibleCols] = useState(currentTable?.columns.map(c => c.name) ?? []);
 
 
     const toggleColumn = (colName: string) => {
@@ -20,28 +20,31 @@ function FilterColums({ columns, setVisibleColums }: FilterProps) {
     };
 
     const handleApplyFilter = () => {
+        if(!currentTable) return
         if (selectedColumn === "all") {
-            setVisibleColums(columns.map(c => c.name));
-        } else {
+            const allColums = currentTable.columns.map((el) => el.name)
+            setVisibleCols(allColums)
+            setVisibleColums(allColums)
+        } else {    
             setVisibleColums([selectedColumn]);
+            setVisibleCols([selectedColumn])
         }
     };
 
 
-    const options = columns.map(({ name }) => {
+    const options = currentTable?.columns.map(({ name }) => {
         return (
             <option key={name} value={name}>{name}</option>
         )
     })
 
-    const checkbox = columns.map(({ name }) => {
+    const checkbox = currentTable?.columns.map(({ name }) => {
         return (
-            <div>
+            <div key={name}>
                 {name}
                 <input
-                    key={name}
                     type='checkbox'
-                    checked={visibleCols.includes(name)}
+                    checked={visibleCols?.includes(name)}
                     onChange={() => toggleColumn(name)}
                 />
             </div>

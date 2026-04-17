@@ -1,6 +1,7 @@
 import rememberDelColumn from '../utils/func/rememberDelColumn'
 import Modal from '../utils/const/Modal'
 import { useDataContext } from '../context/DataContext';
+import { useCurrentTable } from '../utils/hooks/useCurrentTable';
 
 interface PropsModal {
     isOpen: boolean;
@@ -9,7 +10,7 @@ interface PropsModal {
 
 export default function DeleteColums({isOpen, handleCloseModal}: PropsModal) {
     const {selectedColumns, setSelectedColumns, handleDeleteColumns} = rememberDelColumn()
-    const {columns} = useDataContext()
+    const {currentTable} = useCurrentTable()
 
 
     const handleChange = (name: string) => {
@@ -19,9 +20,9 @@ export default function DeleteColums({isOpen, handleCloseModal}: PropsModal) {
             : [...prev, name]
         })
     }
-    const checkbox = columns.map(({name}) => {
+    const checkbox = currentTable?.columns.map(({name}) => {
         return(
-            <div>
+            <div key={name}>
                 {name}
                 <input 
                     type='checkbox' 
