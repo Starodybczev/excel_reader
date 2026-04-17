@@ -20,10 +20,10 @@ export default function DeleteColums({isOpen, handleCloseModal}: PropsModal) {
             : [...prev, name]
         })
     }
-    const checkbox = currentTable?.columns.map(({name}) => {
+    const checkbox = currentTable?.columns.map(({name, label}) => {
         return(
             <div key={name}>
-                {name}
+                {label || name}
                 <input 
                     type='checkbox' 
                     checked={selectedColumns.includes(name)}

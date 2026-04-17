@@ -1,12 +1,16 @@
 import { defaultColumns, useDataContext } from '../../context/DataContext'
+import { useCurrentTable } from '../hooks/useCurrentTable';
 
-interface InputMapProps{
+interface InputMapProps {
     visibleColums: string[]
 }
-export default function InputTypeMap({visibleColums}: InputMapProps) {
+export default function InputTypeMap({ visibleColums }: InputMapProps) {
     const { newRow, handleChangeValue, isUpdate, fileRef, handleUPloadImages } = useDataContext()
-    const firstFileColumn = defaultColumns.find(col => col.type === "file");
-    const element = defaultColumns.filter(({name}) => visibleColums.includes(name)).map(({ type, name, placeholder }) => {
+    const { currentTable } = useCurrentTable()
+    if (!currentTable) return
+    const columns = currentTable.columns
+    const firstFileColumn = columns.find(col => col.type === "file");
+    const element = columns.filter(({ name }) => visibleColums.includes(name)).map(({ type, name, placeholder }) => {
         if (type === "file") {
             return (
                 <td key={name}>
@@ -29,7 +33,7 @@ export default function InputTypeMap({visibleColums}: InputMapProps) {
                     <input
                         type='number'
                         name={name}
-                        placeholder={placeholder}
+                        placeholder={`add ${name}`}
                         value={newRow[name] ?? ""}
                         onChange={handleChangeValue} />
                 </td>
@@ -41,7 +45,7 @@ export default function InputTypeMap({visibleColums}: InputMapProps) {
                     <input
                         type='url'
                         name={name}
-                        placeholder={placeholder}
+                        placeholder={`add ${name}`}
                         value={newRow[name] ?? ""}
                         onChange={handleChangeValue}
                     />
@@ -52,7 +56,7 @@ export default function InputTypeMap({visibleColums}: InputMapProps) {
             <td key={name}>
                 <input
                     type='text'
-                    placeholder={placeholder}
+                    placeholder={`add ${name}`}
                     name={name}
                     value={newRow[name] ?? ""}
                     onChange={handleChangeValue}

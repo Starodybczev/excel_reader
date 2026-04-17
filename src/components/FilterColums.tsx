@@ -1,4 +1,4 @@
-import { memo, useState, type Dispatch, type SetStateAction } from 'react'
+import { memo, useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 import type { AssetsType } from './FileReaderList';
 
 interface FilterProps {
@@ -8,6 +8,16 @@ interface FilterProps {
 function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
     const [selectedColumn, setSelectedColumn] = useState("all");
     const [visibleCols, setVisibleCols] = useState(currentTable?.columns.map(c => c.name) ?? []);
+
+
+    useEffect(() => {
+        if(!currentTable) return
+        const currentName = currentTable.columns.map((col) => col.name)
+        setVisibleCols((prev) => {
+            const merge = [...new Set([...prev, ...currentName])]
+            return merge
+        })
+    }, [currentTable, setVisibleColums])
 
 
     const toggleColumn = (colName: string) => {
@@ -32,16 +42,16 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
     };
 
 
-    const options = currentTable?.columns.map(({ name }) => {
+    const options = currentTable?.columns.map(({ name , label}) => {
         return (
-            <option key={name} value={name}>{name}</option>
+            <option key={name} value={name}>{label || name}</option>
         )
     })
 
-    const checkbox = currentTable?.columns.map(({ name }) => {
+    const checkbox = currentTable?.columns.map(({ name, label }) => {
         return (
             <div key={name}>
-                {name}
+                {label || name}
                 <input
                     type='checkbox'
                     checked={visibleCols?.includes(name)}
