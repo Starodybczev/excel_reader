@@ -3,7 +3,7 @@ import "./styles/index.css";
 import App from "./App.tsx";
 
 import { BrowserRouter } from "react-router-dom";
-import { DataProvider } from "./context/DataProvider.tsx";
+import { DataProvider } from "./context/index";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

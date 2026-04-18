@@ -6,9 +6,7 @@ import {
   type RefObject,
   type SetStateAction,
 } from "react";
-import type { AssetsType } from "../components/FileReaderList";
-import type { FieldType } from "../pages/UsersList";
-import type { AssetRow } from "../utils";
+import type { AssetsType, FieldType, AssetRow } from "../types";
 
 interface EditConfigType {
   fileId: string;

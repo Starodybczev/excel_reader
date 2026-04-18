@@ -6,7 +6,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import type { AssetRow } from ".";
+import type { AssetRow } from "../../types";
 
 type Props = {
   setNewRow: Dispatch<SetStateAction<AssetRow>>;
@@ -27,7 +27,7 @@ export default function useRememberSelectImage({ setNewRow }: Props) {
       }
       const reader = new FileReader();
       reader.onload = () => {
-        setNewRow((prev) => ({
+        setNewRow((prev: AssetRow) => ({
           ...prev,
           [fieldName]: reader.result as string,
         }));

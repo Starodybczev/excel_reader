@@ -8,24 +8,13 @@ import {
   useState,
   type ChangeEvent,
 } from "react";
-import { useDownload } from "../utils";
+import { useDownload, useCurrentTable } from "../utils";
 import { useDataContext } from "../context/DataContext";
-import { useCurrentTable } from "../utils/hooks/useCurrentTable";
 import { useNavigate } from "react-router-dom";
 
 const TableMap = lazy(() => import("../utils/ToMap/TableMap"));
 const AddDataFromTable = lazy(() => import("../components/AddDataFromTable"));
 const Modals = lazy(() => import("../components/Modals/Modals"));
-
-export type ColumnType = "text" | "number" | "file" | "link";
-
-export type FieldType = {
-  name: string;
-  placeholder?: string;
-  type: ColumnType;
-  label?: string;
-  element?: number;
-};
 
 export interface filterProps {
   column: string;

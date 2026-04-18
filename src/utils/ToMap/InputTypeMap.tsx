@@ -1,6 +1,6 @@
 import { memo, useMemo, type ChangeEvent, type RefObject } from "react";
-import { useCurrentTable } from "../hooks/useCurrentTable";
-import type { AssetRow } from "../hooks";
+import { useCurrentTable } from "../index";
+import type { AssetRow } from "../../types";
 
 interface InputMapProps {
   visibleColums: string[];

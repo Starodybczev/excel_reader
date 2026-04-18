@@ -5,9 +5,9 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-import { useMoodal } from "../../utils/hooks/useMoodal";
+import { useMoodal } from "../../utils";
 import { useDataContext } from "../../context/DataContext";
-import type { AssetsType } from "../FileReaderList";
+import type { AssetsType } from "../../types";
 
 const CreateColumn = lazy(() => import("./CreateColumn"));
 const DeleteColums = lazy(() => import("./DeleteColums"));

@@ -1,6 +1,6 @@
 import { memo, useState, type ChangeEvent } from "react";
-import { useExcelReader, type AssetRow } from "../utils";
-import type { FieldType } from "../pages/UsersList";
+import { useExcelReader } from "../utils";
+import type { FieldType, AssetRow } from "../types";
 import { defaultColumns } from "../context/DataContext";
 
 export type AssetsType = {

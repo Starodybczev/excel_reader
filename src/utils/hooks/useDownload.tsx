@@ -2,7 +2,7 @@ import ExcelJS, { type CellValue } from "exceljs";
 import { useCallback, useMemo } from "react";
 import { saveAs } from "file-saver";
 import { addImage } from "../index";
-import type { AssetsType } from "../../components/FileReaderList";
+import type { AssetsType } from "../../types";
 
 interface CurrentTableProps {
   currentTable: AssetsType | null;

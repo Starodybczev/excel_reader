@@ -1,5 +1,5 @@
 import { lazy, memo } from "react";
-import Modal from "../../utils/const/Modal";
+import { Modal } from "../../utils";
 
 const CreateColumnForm = lazy(() => import("./components/CreateColumnForm"));
 

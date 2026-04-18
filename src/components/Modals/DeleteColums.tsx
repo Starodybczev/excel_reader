@@ -1,7 +1,5 @@
 import { memo } from "react";
-import Modal from "../../utils/const/Modal";
-import { useCurrentTable } from "../../utils/hooks/useCurrentTable";
-import useRememberDelColumn from "../../utils/hooks/useRememberDelColumn";
+import { useCurrentTable, useRememberDelColumn, Modal } from "../../utils";
 
 interface PropsModal {
   isOpen: boolean;

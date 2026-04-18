@@ -1,11 +1,10 @@
 import { useCallback, useMemo } from "react";
-import type { FieldType } from "../../pages/UsersList";
-import type { AssetRow } from ".";
+import type { FieldType, AssetRow } from "../../types";
 interface Props {
   col: FieldType;
   row: AssetRow;
 }
-export default function useRenderCell() {
+export function useRenderCell() {
   const handlerenderCell = useCallback(({ col, row }: Props) => {
     const value = row[col.name];
 

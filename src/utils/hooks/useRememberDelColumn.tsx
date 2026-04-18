@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useDataContext } from "../../context/DataContext";
 import { useCurrentTable } from "./useCurrentTable";
 
-export default function useRememberDelColumn() {
+export function useRememberDelColumn() {
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
   const { setUsers } = useDataContext();
   const { currentTableId } = useCurrentTable();

@@ -1,28 +1,14 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import * as XLSX from "xlsx";
 import { transformRow } from "../func/transformRow";
-
-export type AssetRow = {
-  id?: string;
-
-  name: string;
-  images?: string;
-  amount?: number;
-  group?: string;
-  course?: number;
-  beginning?: string;
-  ending?: string;
-  age?: number;
-
-  [key: string]: string | number | undefined;
-};
+import { type AssetRow } from "../../types";
 
 export function useExcelReader<T extends AssetRow>() {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const readExcel = (file: File): Promise<T[]> => {
+  const readExcel = useCallback((file: File): Promise<T[]> => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       setError(null);
@@ -80,7 +66,7 @@ export function useExcelReader<T extends AssetRow>() {
 
       reader.readAsArrayBuffer(file);
     });
-  };
+  }, []);
 
   return useMemo(
     () => ({ readExcel, data, loading, error }),

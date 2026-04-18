@@ -1,6 +1,6 @@
 import { lazy, memo, type Dispatch, type SetStateAction } from "react";
-import Modal from "../../utils/const/Modal";
-import type { AssetsType } from "../FileReaderList";
+import { Modal } from "../../utils";
+import type { AssetsType } from "../../types";
 
 const FilterColums = lazy(() => import("./components/FilterColums"));
 interface FilterProps {

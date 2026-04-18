@@ -1,7 +1,5 @@
 import { memo, type ChangeEvent, type ReactNode } from "react";
-import type { FieldType } from "../../pages/UsersList";
-import type { AssetRow } from "../hooks";
-import type { AssetsType } from "../../components/FileReaderList";
+import type { AssetsType, AssetRow, FieldType } from "../../types";
 
 interface TableRowProps {
   row: AssetRow;

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
-import type { AssetsType } from "../../components/FileReaderList";
+import type { AssetsType } from "../../types";
 import { useMemo } from "react";
 
 interface useCurrentTableProps {

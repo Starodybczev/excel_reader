@@ -5,8 +5,8 @@ import {
   type ChangeEvent,
   type ReactNode,
 } from "react";
-import type { AssetsType } from "../components/FileReaderList";
-import { rememberSelectImage, type AssetRow } from "../utils";
+import type { AssetsType, AssetRow } from "../types";
+import { useRememberSelectImage } from "../utils";
 import { DataContext } from "./DataContext";
 
 interface EditConfigType {
@@ -33,7 +33,7 @@ export function DataProvider({ children }: Props) {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [editConfig, setEditConfig] = useState<EditConfigType | null>(null);
 
-  const { handleUPloadImages, fileRef, handleReset } = rememberSelectImage({
+  const { handleUPloadImages, fileRef, handleReset } = useRememberSelectImage({
     setNewRow,
   });
 

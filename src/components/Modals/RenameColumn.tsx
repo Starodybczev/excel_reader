@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Modal from "../../utils/const/Modal";
-import { useCurrentTable } from "../../utils/hooks/useCurrentTable";
+import { useCurrentTable, Modal } from "../../utils";
 import { useDataContext } from "../../context/DataContext";
 
 interface RemaneColumnProps {

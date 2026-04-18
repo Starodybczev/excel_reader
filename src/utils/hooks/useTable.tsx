@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useDataContext } from "../../context/DataContext";
-import type { AssetRow } from "./useExcelReader";
-import type { AssetsType } from "../../components/FileReaderList";
+import type { AssetRow, AssetsType } from "../../types";
 import { useCurrentTable } from "./useCurrentTable";
 
 interface updateProps {
@@ -12,7 +11,7 @@ interface EditProps {
   file: AssetsType;
 }
 
-export default function useTable() {
+export function useTable() {
   const { currentTableId } = useCurrentTable();
   const {
     handleReset,

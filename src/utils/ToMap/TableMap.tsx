@@ -1,9 +1,8 @@
 import { lazy, memo, Suspense, useMemo } from "react";
-import type { AssetsType } from "../../components/FileReaderList";
+import type { AssetsType } from "../../types";
 import type { filterProps } from "../../pages/UsersList";
 import { useDataContext } from "../../context/DataContext";
-import useRenderCell from "../hooks/useRenderCell";
-import useTable from "../hooks/useTable";
+import { useRenderCell, useTable } from "../index";
 
 type TableMapType = {
   users: AssetsType[];

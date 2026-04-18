@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useDataContext } from "../context/DataContext";
-import useTable from "../utils/hooks/useTable";
+import { useTable } from "../utils";
 
 interface Props {
   disabled: boolean;

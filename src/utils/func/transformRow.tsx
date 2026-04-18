@@ -1,5 +1,5 @@
 import { columnMap } from "../data";
-import type { AssetRow } from "../hooks";
+import type { AssetRow } from "../../types";
 
 const normalizeKey = (key: string) => {
   return key
