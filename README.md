@@ -72,7 +72,7 @@ Upload files, edit data, manage columns, and export results — without opening 
 
 ### Table View
 <p align="center">
-  <img src="screens/table_view.png" width="250"/>
+  <img src="public/screen.png" width="600"/>
 </p>
 
 
@@ -105,3 +105,6 @@ Upload files, edit data, manage columns, and export results — without opening 
 Educational project for learning and portfolio use.
 
 EOF
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Starodybczev/Vacuum-Book-Electronic-Guide-App/main/screen/skell.gif" width="700" />
+</p>
