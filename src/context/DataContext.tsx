@@ -7,7 +7,7 @@ import {
   type SetStateAction,
 } from "react";
 import type { AssetsType } from "../components/FileReaderList";
-import type { FieldType } from "../components/UsersList";
+import type { FieldType } from "../pages/UsersList";
 import type { AssetRow } from "../utils";
 
 interface EditConfigType {

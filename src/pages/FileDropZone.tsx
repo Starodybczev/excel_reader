@@ -1,9 +1,9 @@
 import { memo, useCallback } from "react";
 import { defaultColumns, useDataContext } from "../context/DataContext";
 import { useDropzone } from "react-dropzone";
-import type { AssetsType } from "./FileReaderList";
 import { Link } from "react-router-dom";
 import { useExcelReader, type AssetRow } from "../utils";
+import type { AssetsType } from "../components/FileReaderList";
 
 function FileDropZone() {
   const { users, setUsers } = useDataContext();

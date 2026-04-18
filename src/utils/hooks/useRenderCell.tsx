@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
-import type { FieldType } from "../../components/UsersList";
-import type { AssetRow } from "../hooks";
+import type { FieldType } from "../../pages/UsersList";
+import type { AssetRow } from ".";
 interface Props {
   col: FieldType;
   row: AssetRow;

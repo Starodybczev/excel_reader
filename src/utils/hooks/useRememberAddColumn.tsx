@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useDataContext } from "../../context/DataContext";
-import type { ColumnType } from "../../components/UsersList";
+import type { ColumnType } from "../../pages/UsersList";
 import { useCurrentTable } from "./useCurrentTable";
 
 export function useRememberAddColumn() {

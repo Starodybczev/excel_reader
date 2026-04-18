@@ -1,5 +1,5 @@
 import { memo, useState, type Dispatch, type SetStateAction } from "react";
-import type { AssetsType } from "./FileReaderList";
+import type { AssetsType } from "../../FileReaderList";
 
 interface FilterProps {
   currentTable: AssetsType | null;

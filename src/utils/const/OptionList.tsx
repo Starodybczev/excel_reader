@@ -1,5 +1,5 @@
 import { memo, type Dispatch, type SetStateAction } from "react";
-import type { ColumnType } from "../../components/UsersList";
+import type { ColumnType } from "../../pages/UsersList";
 
 const options = [
   { id: 1, name: "text" },

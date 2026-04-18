@@ -14,8 +14,8 @@ import { useCurrentTable } from "../utils/hooks/useCurrentTable";
 import { useNavigate } from "react-router-dom";
 
 const TableMap = lazy(() => import("../utils/ToMap/TableMap"));
-const AddDataFromTable = lazy(() => import("./AddDataFromTable"));
-const Modals = lazy(() => import("./Modals/Modals"));
+const AddDataFromTable = lazy(() => import("../components/AddDataFromTable"));
+const Modals = lazy(() => import("../components/Modals/Modals"));
 
 export type ColumnType = "text" | "number" | "file" | "link";
 
