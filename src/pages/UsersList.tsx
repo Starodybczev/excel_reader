@@ -11,6 +11,7 @@ import {
 import { useDownload, useCurrentTable } from "../utils";
 import { useDataContext } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
+import Louder from "../components/louders/logo_excell.svg";
 
 const TableMap = lazy(() => import("../utils/ToMap/TableMap"));
 const AddDataFromTable = lazy(() => import("../components/AddDataFromTable"));
@@ -114,32 +115,55 @@ function UsersList() {
   );
 
   return (
-    <div>
-      <Suspense fallback={"louding"}>
-        <div>
-          {users.length > 0 && <input type="text" onChange={handleSearch} />}
-          {users.length > 0 && <Modals {...filterProps} />}
-          {users.length > 0 && (
-            <select
-              value={currentTable?.id ?? ""}
-              onChange={handleChangeOption}
+    <div className="table_block">
+      <div className="container">
+        <Suspense
+          fallback={
+            <img className="louder" style={{ width: 200 }} src={Louder} />
+          }
+        >
+          <div className="input_block">
+            {users.length > 0 && (
+              <input
+                className={"input__search"}
+                type="text"
+                placeholder="search columns"
+                onChange={handleSearch}
+              />
+            )}
+          </div>
+          <div className="select_option">
+            {users.length > 0 && (
+              <select
+                className="select_table"
+                value={currentTable?.id ?? ""}
+                onChange={handleChangeOption}
+              >
+                {options}
+              </select>
+            )}
+            {users.length > 0 && <Modals {...filterProps} />}
+          </div>
+          <div className="table">
+            <TableMap
+              users={currentTable ? [currentTable] : []}
+              {...props}
+              {...filterProps}
+            />
+            <div
+              className="button__block"
+              style={{ display: "flex", gap: "10px" }}
             >
-              {options}
-            </select>
-          )}
-        </div>
-        <TableMap
-          users={currentTable ? [currentTable] : []}
-          {...props}
-          {...filterProps}
-        />
-        <div style={{ display: "flex", gap: "10px" }}>
-          {users.length > 0 && <AddDataFromTable />}
-          {users.length > 0 && (
-            <button onClick={ExportTOexcel}>download</button>
-          )}
-        </div>
-      </Suspense>
+              {users.length > 0 && <AddDataFromTable />}
+              {users.length > 0 && (
+                <button className="downLoad_btn" onClick={ExportTOexcel}>
+                  download
+                </button>
+              )}
+            </div>
+          </div>
+        </Suspense>
+      </div>
     </div>
   );
 }

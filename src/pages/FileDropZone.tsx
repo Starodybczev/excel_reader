@@ -1,6 +1,6 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, type MouseEvent } from "react";
 import { defaultColumns, useDataContext } from "../context/DataContext";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, type FileRejection } from "react-dropzone";
 import { Link } from "react-router-dom";
 import { useExcelReader } from "../utils";
 import type { AssetsType, AssetRow } from "../types";
@@ -10,7 +10,18 @@ function FileDropZone() {
   const { readExcel } = useExcelReader<AssetRow>();
 
   const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
+    async (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      if (fileRejections.length > 0) {
+        alert("Некоторые файлы не являются Excel-таблицами");
+
+        fileRejections.forEach(({ file, errors }) => {
+          errors.forEach((err) => {
+            if (err.code === "file-invalid-type") {
+              console.error(`Файл ${file.name} имеет неверный формат`);
+            }
+          });
+        });
+      }
       for (const file of acceptedFiles) {
         try {
           const rows = await readExcel(file);
@@ -35,16 +46,31 @@ function FileDropZone() {
   );
 
   const { getInputProps, getRootProps, isDragActive } = useDropzone({
+    accept: {
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        ".xlsx",
+      ],
+      "application/vnd.ms-excel": [".xls"],
+    },
     onDrop,
     multiple: true,
   });
 
+  const handleDelateFile = useCallback(
+    (id: string, e: MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      setUsers((prev) => prev.filter((el) => el.id !== id));
+    },
+    [setUsers],
+  );
+
   const DropZone = users.map(({ id, name }) => {
     return (
-      <div key={id}>
+      <div onClick={(e) => e.stopPropagation()} className="card_file" key={id}>
         <Link onClick={(e) => e.stopPropagation()} to={`/file/${id}`}>
           {name}
         </Link>
+        <button onClick={(e) => handleDelateFile(id, e)}>x</button>
       </div>
     );
   });
@@ -67,7 +93,7 @@ function FileDropZone() {
         <p>Перетащи файлы сюда или нажми для выбора</p>
       )}
 
-      {users.length > 0 && DropZone}
+      <div className="cards_excel_files">{users.length > 0 && DropZone}</div>
     </div>
   );
 }

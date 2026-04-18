@@ -20,7 +20,7 @@ function DeleteColums({ isOpen, handleCloseModal }: PropsModal) {
   };
   const checkbox = currentTable?.columns.map(({ name, label }) => {
     return (
-      <div key={name}>
+      <div className="checkbox" key={name}>
         {label || name}
         <input
           type="checkbox"
@@ -33,8 +33,10 @@ function DeleteColums({ isOpen, handleCloseModal }: PropsModal) {
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
       <h1>Delete Column</h1>
-      {checkbox}
-      <button onClick={handleDeleteColumns}>delete</button>
+      <div className="checkbox_block">{checkbox}</div>
+      <button className="btn_add" onClick={handleDeleteColumns}>
+        delete
+      </button>
     </Modal>
   );
 }

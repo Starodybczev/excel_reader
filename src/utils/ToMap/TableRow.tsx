@@ -38,8 +38,20 @@ const TableRow = memo(
             <td key={col.name}>{handlerenderCell({ col, row })}</td>
           ))}
         <td>
-          <button onClick={() => handleEdit({ row, file })}>Edit</button>
-          <button onClick={() => handleDelete(file.id, row.id!)}>delete</button>
+          <div className="btn_block_edit">
+            <button
+              className="edit_btn"
+              onClick={() => handleEdit({ row, file })}
+            >
+              Edit
+            </button>
+            <button
+              className="btn_del"
+              onClick={() => handleDelete(file.id, row.id!)}
+            >
+              delete
+            </button>
+          </div>
           {isRowEditing && fileColumn && (
             <input
               type="file"

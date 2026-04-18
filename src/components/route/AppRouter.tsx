@@ -4,13 +4,19 @@ import { Route, Routes } from "react-router-dom";
 const FileDropZone = lazy(() => import("../../pages/FileDropZone"));
 const UsersList = lazy(() => import("../../pages/UsersList"));
 
+import Louder from "../../components/louders/logo_excell.svg";
+
 function AppRouter() {
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <Suspense fallback={"louding"}>
+          <Suspense
+            fallback={
+              <img className="louder" style={{ width: 200 }} src={Louder} />
+            }
+          >
             <FileDropZone />
           </Suspense>
         }

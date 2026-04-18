@@ -9,6 +9,11 @@ import { useMoodal } from "../../utils";
 import { useDataContext } from "../../context/DataContext";
 import type { AssetsType } from "../../types";
 
+import Add from "../../assets/add.svg";
+import Delete from "../../assets/bin.svg";
+import Filter from "../../assets/filter.svg";
+import Edit from "../../assets/write.svg";
+
 const CreateColumn = lazy(() => import("./CreateColumn"));
 const DeleteColums = lazy(() => import("./DeleteColums"));
 const FilterTable = lazy(() => import("./FilterTable"));
@@ -48,19 +53,33 @@ function Modals({ currentTable, setVisibleColums }: FilterProps) {
           handleCloseModal={editColumn.handleCloseModal}
         />
 
-        <div>
+        <div className="modal_block_contant">
           {users.length > 0 && (
             <>
-              <button onClick={createModal.handleOpenModal}>
-                create column
+              <button
+                className="create_modal"
+                onClick={createModal.handleOpenModal}
+              >
+                <img className="icon-white" src={Add} />
               </button>
-              <button onClick={deleteModal.handleOpenModal}>
-                delete column
+              <button
+                className="delete_modal"
+                onClick={deleteModal.handleOpenModal}
+              >
+                <img className="icon-white" src={Delete} />
               </button>
-              <button onClick={filterModal.handleOpenModal}>
-                filter column
+              <button
+                className="filter_modal"
+                onClick={filterModal.handleOpenModal}
+              >
+                <img className="icon-white" src={Filter} />
               </button>
-              <button onClick={editColumn.handleOpenModal}>edit column</button>
+              <button
+                className="edit_modal"
+                onClick={editColumn.handleOpenModal}
+              >
+                <img className="icon-white" src={Edit} />
+              </button>
             </>
           )}
         </div>

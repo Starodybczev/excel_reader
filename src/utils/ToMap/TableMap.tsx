@@ -13,6 +13,7 @@ type TableMapType = {
 
 const TableRow = lazy(() => import("./TableRow"));
 const InputTypeMap = lazy(() => import("./InputTypeMap"));
+import NotFound from "../../components/louders/logo_not_found.svg";
 
 function TableMap({ search, visibleColums, users, filters }: TableMapType) {
   const {
@@ -75,7 +76,12 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
     const hasError = filtered.some((item: AssetsType) => item.rows.length > 0);
 
     if (search && !hasError) {
-      return <p>not found</p>;
+      return (
+        <div className="error_filter">
+          <img src={NotFound} style={{ width: 200 }} />
+          <h2>not found</h2>
+        </div>
+      );
     }
 
     return filtered.map((file: AssetsType) => {
@@ -83,47 +89,60 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
       const fileColumn = currentColumns.find((col) => col.type === "file");
 
       return (
-        <div key={file.id} style={{ marginBottom: "20px" }}>
-          <table
-            border={1}
-            style={{ width: "100%", borderCollapse: "collapse" }}
-          >
-            <thead>
-              <tr style={{ backgroundColor: "#f2f2f2" }}>
-                {currentColumns
-                  .filter(({ name }) => visibleColums.includes(name))
-                  .map(({ name, label, placeholder }) => (
-                    <th key={name}>{label || name || placeholder}</th>
-                  ))}
-                <th>Действия</th>
-              </tr>
-            </thead>
-            <tbody>
-              {file.rows.map((row) => {
-                const isRowEditing =
-                  editConfig?.rowId === row.id &&
-                  editConfig?.fileId === file.id;
+        <div
+          className="table_data"
+          key={file.id}
+          style={{ marginBottom: "20px" }}
+        >
+          <div className="container">
+            <table
+              className="table_styles"
+              border={1}
+              style={{
+                width: "100%",
+                borderCollapse: "separate",
+                borderSpacing: 0,
+              }}
+            >
+              <thead className="thead_body">
+                <tr style={{ backgroundColor: "#f2f2f2" }}>
+                  {currentColumns
+                    .filter(({ name }) => visibleColums.includes(name))
+                    .map(({ name, label, placeholder }) => (
+                      <th className="th" key={name}>
+                        {label || name || placeholder}
+                      </th>
+                    ))}
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                {file.rows.map((row) => {
+                  const isRowEditing =
+                    editConfig?.rowId === row.id &&
+                    editConfig?.fileId === file.id;
 
-                const activity = {
-                  row,
-                  file,
-                  visibleColums,
-                  currentColumns,
-                  handlerenderCell,
-                  handleEdit,
-                  handleDelete,
-                  handleUPloadImages,
-                  fileColumn,
-                  isRowEditing,
-                };
+                  const activity = {
+                    row,
+                    file,
+                    visibleColums,
+                    currentColumns,
+                    handlerenderCell,
+                    handleEdit,
+                    handleDelete,
+                    handleUPloadImages,
+                    fileColumn,
+                    isRowEditing,
+                  };
 
-                return <TableRow key={row.id} {...activity} />;
-              })}
-              <tr>
-                <InputTypeMap {...props} />
-              </tr>
-            </tbody>
-          </table>
+                  return <TableRow key={row.id} {...activity} />;
+                })}
+                <tr>
+                  <InputTypeMap {...props} />
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     });

@@ -19,18 +19,39 @@
   pointer-events: all;
 }
 
+.btn_run {
+  background-color: red;
+  border: none;
+  border-radius: 7px;
+  padding: 10px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  color: white;
+  transition: 1s;
+  cursor: pointer;
+}
+.btn_run:hover {
+  background-color: rgb(216, 55, 55);
+}
+.btn_run:active {
+  transform: scale(0.2);
+}
+
 .modal {
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   /* Заменяем center на flex-start, чтобы контент начинался сверху при скролле */
-  justify-content: flex-start;
+  justify-content: center;
   gap: 5px;
   width: 600px;
-  max-height: 80vh; /* Уменьшаем высоту до 80% экрана */
+  max-height: 80vh;
+  /* Уменьшаем высоту до 80% экрана */
   overflow-y: auto;
   padding: 50px 20px;
-  background-color: #f67db3;
+  background-color: #000000;
   color: #fff;
   border-radius: 10px;
   position: relative;
@@ -43,6 +64,464 @@
 .modal.active {
   transform: scale(1);
 }
-.modal button {
-  margin-top: 50px;
+
+.create_modal {
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: 1s;
+}
+.create_modal:hover {
+  background-color: rgb(43, 42, 42);
+}
+.create_modal .icon-white {
+  width: 20px;
+  filter: brightness(0) invert(1);
+}
+.create_modal:active {
+  transform: scale(0.2);
+}
+
+.delete_modal {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: red;
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: 1s;
+}
+.delete_modal:hover {
+  background-color: rgb(216, 55, 55);
+}
+.delete_modal .icon-white {
+  width: 20px;
+  filter: brightness(0) invert(1);
+}
+.delete_modal:active {
+  transform: scale(0.2);
+}
+
+.filter_modal {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(43, 167, 74);
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.filter_modal:hover {
+  background-color: rgb(42, 134, 65);
+}
+.filter_modal .icon-white {
+  width: 20px;
+  filter: brightness(0) invert(1);
+}
+.filter_modal:active {
+  transform: scale(0.2);
+}
+
+.edit_modal {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(251, 255, 10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  border: none;
+  transition: 1s;
+  cursor: pointer;
+}
+.edit_modal:hover {
+  background-color: rgb(220, 223, 57);
+}
+.edit_modal:active {
+  transform: scale(0.2);
+}
+
+.icon-white {
+  width: 20px;
+}
+
+.modal_block_contant {
+  display: flex;
+  gap: 10px;
+}
+
+.formCreateColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.formCreateColumn .option_menu {
+  display: flex;
+  gap: 10px;
+}
+
+.filter_block_madal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.filter_block_madal select {
+  margin-bottom: 10px;
+}
+
+.btn_add {
+  margin-top: 30px;
+  background-color: rgb(39, 136, 10);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.btn_add:hover {
+  background-color: rgb(23, 77, 7);
+}
+.btn_add:active {
+  transform: scale(0.2);
+}
+
+.checkbox_block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 300px;
+  margin-bottom: 30px;
+}
+.checkbox_block .checkbox {
+  font-size: 24px;
+}
+
+.edit__modal {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.dropZone {
+  height: 100vh;
+  position: relative;
+}
+
+.cards_excel_files {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+}
+
+.card_file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  gap: 30px;
+  width: 130px;
+  border: 1px solid black;
+  padding: 10px 30px;
+  background-color: rgb(0, 0, 0);
+}
+.card_file a {
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+  transition: 1s;
+}
+.card_file a:hover {
+  text-decoration: underline;
+}
+.card_file button {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: red;
+  transition: 1s;
+  cursor: pointer;
+}
+.card_file button:hover {
+  background-color: rgb(221, 57, 57);
+}
+
+.table_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.table_block input {
+  padding: 10px;
+}
+
+.input__search,
+.select_option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.input_block {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.input__search {
+  padding: 10px 0;
+}
+
+.table {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.button__block {
+  max-width: 1070px;
+  min-width: 400px;
+  width: 100%;
+  padding: 0 50px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.select_table {
+  padding: 10px;
+}
+
+.downLoad_btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  background-color: rgb(29, 103, 172);
+  padding: 10px 45px 10px 20px;
+  cursor: pointer;
+  transition: 1s;
+}
+.downLoad_btn:hover {
+  background-color: rgb(28, 88, 145);
+}
+.downLoad_btn:active {
+  transform: scale(0.2);
+}
+.downLoad_btn::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background-image: url("/download.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+}
+
+.btn_del {
+  border: none;
+  background-color: red;
+  padding: 10px 15px;
+  border-radius: 7px;
+  color: white;
+  transition: 1s;
+  cursor: pointer;
+}
+.btn_del:hover {
+  background-color: rgb(228, 62, 62);
+}
+.btn_del:active {
+  transform: scale(0.2);
+}
+
+.edit_btn {
+  border: none;
+  background-color: rgb(8, 100, 8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 7px;
+  transition: 1s;
+  cursor: pointer;
+}
+.edit_btn:hover {
+  background-color: rgb(4, 88, 4);
+}
+.edit_btn:active {
+  transform: scale(0.2);
+}
+
+.louder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn_block_edit {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+input[type=file]::file-selector-button {
+  background-color: rgb(29, 103, 172);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+input[type=file] {
+  padding: 10px 0;
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: rgb(20, 80, 140);
+}
+
+.btn_add__update {
+  border: none;
+  background-color: rgb(8, 128, 8);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 7px;
+  transition: 1s;
+  cursor: pointer;
+}
+.btn_add__update:hover {
+  background-color: rgb(5, 119, 5);
+}
+.btn_add__update:active {
+  transform: scale(0.2);
+}
+.btn_add__update:disabled {
+  transform: scale(1);
+  background-color: rgb(182, 207, 182);
+  cursor: not-allowed;
+}
+
+th,
+td {
+  padding: 10px;
+  white-space: nowrap;
+  min-width: 150px;
+}
+
+.thead_body {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.table_data {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 300px;
+  max-height: 65vh;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
+
+.error_filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 65vh;
+}
+.error_filter h2 {
+  padding-top: 20px;
+}
+
+/* Оформление шапки */
+.table_styles th {
+  background-color: #f8f9fc;
+  color: #495057;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 16px 20px;
+  border-bottom: 2px solid #edf2f7;
+  text-align: center;
+}
+
+/* Оформление ячеек тела */
+.table_styles td {
+  padding: 14px 20px;
+  color: #2d3748;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.table_styles tr:hover td {
+  background-color: #f7fafc;
+}
+
+.table_styles tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 1800px) {
+  .table_data {
+    overflow-x: auto;
+  }
+}
+.container {
+  width: 100%;
+  max-width: 1100px;
+  min-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@media (max-width: 1800px) {
+  .container {
+    padding: 0, 20px;
+    display: block;
+  }
 }/*# sourceMappingURL=index.css.map */

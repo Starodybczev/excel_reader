@@ -48,8 +48,9 @@ export default function RenameColumn({
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
       <h1>Rename</h1>
-      <div>
+      <div className="edit__modal">
         <select
+          className="select_table"
           value={selectedColumn}
           onChange={(e) => setSelectedColumn(e.target.value)}
         >
@@ -64,7 +65,9 @@ export default function RenameColumn({
           onChange={(e) => setNewLabel(e.target.value)}
         />
       </div>
-      <button onClick={handleApply}>apply</button>
+      <button className={"btn_add"} onClick={handleApply}>
+        apply
+      </button>
     </Modal>
   );
 }

@@ -10,12 +10,13 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
   const [visibleCols, setVisibleCols] = useState(
     () => currentTable?.columns.map((c) => c.name) ?? [],
   );
-  const [prevTableId, setPrevTableId] = useState(currentTable?.id);
 
-  if (currentTable && currentTable.id !== prevTableId) {
-    const newColNames = currentTable.columns.map((c) => c.name);
-    setPrevTableId(currentTable.id);
-    setVisibleCols(newColNames);
+  const [prevColumns, setPrevColumns] = useState(currentTable?.columns);
+
+  if (currentTable?.columns !== prevColumns) {
+    const allColNames = currentTable?.columns.map((c) => c.name) ?? [];
+    setPrevColumns(currentTable?.columns);
+    setVisibleCols(allColNames);
   }
 
   const toggleColumn = (colName: string) => {
@@ -24,18 +25,21 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
       : [...visibleCols, colName];
 
     setVisibleCols(updated);
-    setVisibleColums(updated);
   };
 
   const handleApplyFilter = () => {
     if (!currentTable) return;
+
     if (selectedColumn === "all") {
-      const allColums = currentTable.columns.map((el) => el.name);
-      setVisibleCols(allColums);
-      setVisibleColums(allColums);
+      const allColNames = currentTable.columns.map((el) => el.name);
+
+      setVisibleCols(allColNames);
+
+      setVisibleColums(allColNames);
     } else {
-      setVisibleColums([selectedColumn]);
-      setVisibleCols([selectedColumn]);
+      const singleCol = [selectedColumn];
+      setVisibleColums(singleCol);
+      setVisibleCols(singleCol);
     }
   };
 
@@ -49,7 +53,7 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
 
   const checkbox = currentTable?.columns.map(({ name, label }) => {
     return (
-      <div key={name}>
+      <div className="checkbox" key={name}>
         {label || name}
         <input
           type="checkbox"
@@ -60,8 +64,10 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
     );
   });
   return (
-    <div>
+    <div className="filter_block_madal">
+      <h1>Filter Table</h1>
       <select
+        className="select_table"
         value={selectedColumn}
         onChange={(e) => setSelectedColumn(e.target.value)}
       >
@@ -69,8 +75,10 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
         {options}
       </select>
 
-      <div>{checkbox}</div>
-      <button onClick={handleApplyFilter}>apply</button>
+      <div className="checkbox_block">{checkbox}</div>
+      <button className="btn_add" onClick={handleApplyFilter}>
+        apply
+      </button>
     </div>
   );
 }

@@ -26,7 +26,11 @@ function UpdateTable({ disabled }: Props) {
     });
   };
   return (
-    <button disabled={disabled} onClick={CreateTask}>
+    <button
+      className="btn_add__update"
+      disabled={disabled}
+      onClick={CreateTask}
+    >
       {editConfig ? "save change" : "add"}
     </button>
   );

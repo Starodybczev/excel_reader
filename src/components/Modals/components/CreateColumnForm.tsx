@@ -11,16 +11,18 @@ function CreateColumnForm() {
   };
 
   return (
-    <form onSubmit={handleAdd}>
-      <input
-        value={newColumn}
-        type="text"
-        placeholder="add collumn"
-        required
-        onChange={(e) => setNewColumn(e.target.value)}
-      />
-      <OptionList type={type} setType={setType} />
-      <button>add column</button>
+    <form className="formCreateColumn" onSubmit={handleAdd}>
+      <div className="option_menu">
+        <input
+          value={newColumn}
+          type="text"
+          placeholder="add collumn"
+          required
+          onChange={(e) => setNewColumn(e.target.value)}
+        />
+        <OptionList type={type} setType={setType} />
+      </div>
+      <button className="btn_add">add column</button>
     </form>
   );
 }

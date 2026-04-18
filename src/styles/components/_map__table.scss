@@ -1,0 +1,74 @@
+th,
+td {
+    padding: 10px;
+    white-space: nowrap;
+    min-width: 150px;
+}
+
+
+.thead_body {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.table_data {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 300px;
+    max-height: 65vh;
+    margin-bottom: 20px;
+    border-radius: 8px;
+
+}
+
+.error_filter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 65vh;
+
+    h2{
+        padding-top: 20px;
+    }
+}
+
+/* Оформление шапки */
+.table_styles th {
+    background-color: #f8f9fc;
+    color: #495057;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 16px 20px;
+    border-bottom: 2px solid #edf2f7;
+    text-align: center;
+}
+
+/* Оформление ячеек тела */
+.table_styles td {
+    padding: 14px 20px;
+    color: #2d3748;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.table_styles tr:hover td {
+    background-color: #f7fafc;
+}
+
+.table_styles tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 1800px){
+    .table_data{
+        overflow-x: auto;
+    }
+
+}
