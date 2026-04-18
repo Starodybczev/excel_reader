@@ -1,44 +1,43 @@
 import { columnMap } from "../data";
 import type { AssetRow } from "../hooks";
 
-export const transformRow = (row: Record<string, any>): AssetRow => {
-    const result: AssetRow = {
-        name: "",
-    };
+const normalizeKey = (key: string) => {
+  return key
+    .toLowerCase()
+    .replace(/[_-]/g, " ")
+    .replace(/\(.*?\)/g, "")
+    .trim();
+};
 
-    const normalizeKey = (key: string) => {
-        return key
-            .toLowerCase()
-            .replace(/[_-]/g, " ")  
-            .replace(/\(.*?\)/g, "")  
-            .trim();
-    };
+export const transformRow = (row: Record<string, unknown>): AssetRow => {
+  const result: AssetRow = {
+    name: "",
+    images: "no image",
+  };
 
-    for (const key in row) {
-        const normalized = normalizeKey(key);
+  for (const rawKey in row) {
+    const normalized = normalizeKey(rawKey);
+    let matchedKey: string | null = null;
 
-        let matchedKey: string | null = null;
-
-        for (const target in columnMap) {
-            const key = target as keyof typeof columnMap
-            if (columnMap[key].includes(normalized)) {
-                matchedKey = target;
-                break;
-            }
-        }
-
-        const value = row[key];
-
-        if(!result.images){
-            result.images = "no image"
-        }
-
-        if (matchedKey) {
-            result[matchedKey] = value;
-        } else {
-            result[key] = value;
-        }
+    for (const targetKey in columnMap) {
+      if (columnMap[targetKey as keyof typeof columnMap].includes(normalized)) {
+        matchedKey = targetKey;
+        break;
+      }
     }
 
-    return result;
+    const value = row[rawKey];
+    const safeValue =
+      typeof value === "string" || typeof value === "number"
+        ? value
+        : undefined;
+
+    if (matchedKey) {
+      result[matchedKey] = safeValue;
+    } else {
+      result[rawKey] = safeValue;
+    }
+  }
+
+  return result;
 };

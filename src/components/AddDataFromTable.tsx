@@ -1,18 +1,16 @@
+import { memo } from "react";
+import { useDataContext } from "../context/DataContext";
+import UpdateTable from "./UpdateTable";
 
-import { useDataContext } from '../context/DataContext';
-import UpdateTable from './UpdateTable'
+function AddDataFromTable() {
+  const { newRow } = useDataContext();
 
+  const isDisable = Object.values(newRow).some((val) => !val);
 
-
-export default function AddDataFromTable() {
-
-    const {newRow} = useDataContext()
-
-    const isDisable = Object.values(newRow).some((val) => !val)
-
-    return (
-        <div>
-            <UpdateTable disabled={isDisable}/>
-        </div>
-    )
+  return (
+    <div>
+      <UpdateTable disabled={isDisable} />
+    </div>
+  );
 }
+export default memo(AddDataFromTable);

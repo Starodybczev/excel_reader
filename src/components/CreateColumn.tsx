@@ -1,17 +1,18 @@
-import Modal from '../utils/const/Modal'
-import CreateColumnForm from './CreateColumnForm';
+import { memo } from "react";
+import Modal from "../utils/const/Modal";
+import CreateColumnForm from "./CreateColumnForm";
 
 interface PropsModal {
-    isOpen: boolean;
-    handleCloseModal: () => void;
+  isOpen: boolean;
+  handleCloseModal: () => void;
 }
 
-export default function CreateColumn({isOpen, handleCloseModal}: PropsModal) {
-    
+function CreateColumn({ isOpen, handleCloseModal }: PropsModal) {
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
-        <h1>Create Column</h1>
-        <CreateColumnForm/>
+      <h1>Create Column</h1>
+      <CreateColumnForm />
     </Modal>
-  )
+  );
 }
+export default memo(CreateColumn);

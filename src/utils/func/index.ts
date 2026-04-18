@@ -1,2 +1,2 @@
-export { default as rememberSelectImage } from "./rememberSelectImage"
+export { default as rememberSelectImage } from "../hooks/useRememberSelectImage"
 export { addImage } from "./addImage"

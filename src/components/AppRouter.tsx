@@ -1,13 +1,29 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import FileDropZone from './FileDropZone'
-import UsersList from './UsersList'
+import { lazy, memo, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 
-export default function AppRouter() {
+const FileDropZone = lazy(() => import("./FileDropZone"));
+const UsersList = lazy(() => import("./UsersList"));
+
+function AppRouter() {
   return (
     <Routes>
-        <Route path='/' element={<FileDropZone/>}/>
-        <Route path='/file/:id' element={<UsersList/>}/>
+      <Route
+        path="/"
+        element={
+          <Suspense fallback={"louding"}>
+            <FileDropZone />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/file/:id"
+        element={
+          <Suspense fallback={"louding"}>
+            <UsersList />
+          </Suspense>
+        }
+      />
     </Routes>
-  )
+  );
 }
+export default memo(AppRouter);

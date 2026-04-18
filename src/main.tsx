@@ -1,14 +1,14 @@
-import { createRoot } from 'react-dom/client'
-import "./styles/index.css"
-import App from './App.tsx'
-import { DataProvider } from './context/DataContext.tsx'
-import { BrowserRouter } from 'react-router-dom'
+import { createRoot } from "react-dom/client";
+import "./styles/index.css";
+import App from "./App.tsx";
 
-createRoot(document.getElementById('root')!)
-    .render(
-        <BrowserRouter>
-            <DataProvider>
-                <App />
-            </DataProvider>
-        </BrowserRouter>
-    )
+import { BrowserRouter } from "react-router-dom";
+import { DataProvider } from "./context/DataProvider.tsx";
+
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <DataProvider>
+      <App />
+    </DataProvider>
+  </BrowserRouter>,
+);

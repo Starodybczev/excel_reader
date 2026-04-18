@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import * as XLSX from 'xlsx';
-import { transformRow } from '../func/transformRow';
+import { useMemo, useState } from "react";
+import * as XLSX from "xlsx";
+import { transformRow } from "../func/transformRow";
 
 export type AssetRow = {
   id?: string;
@@ -10,15 +10,14 @@ export type AssetRow = {
   amount?: number;
   group?: string;
   course?: number;
-  beginning?: string
+  beginning?: string;
   ending?: string;
   age?: number;
 
-  [key: string]: any;
+  [key: string]: string | number | undefined;
 };
 
-
-export function useExcelReader<T>() {
+export function useExcelReader<T extends AssetRow>() {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,33 +32,40 @@ export function useExcelReader<T>() {
       reader.onload = (e) => {
         try {
           const buffer = e.target?.result;
-          const workbook = XLSX.read(buffer, { type: 'array', cellDates: true });
+          const workbook = XLSX.read(buffer, {
+            type: "array",
+            cellDates: true,
+          });
 
           // Читаем первый лист
           const sheetName = workbook.SheetNames[0];
           const worksheet = workbook.Sheets[sheetName];
 
           // Преобразуем в JSON
-          const json = XLSX.utils.sheet_to_json<T>(worksheet, {
-            raw: false,
-            dateNF: 'dd-mm-yyyy',
-            defval: ''
-          });
+          const json = XLSX.utils.sheet_to_json<Record<string, unknown>>(
+            worksheet,
+            {
+              raw: false,
+              dateNF: "dd-mm-yyyy",
+              defval: "",
+            },
+          );
 
-          const dataTable = json.map((item: any) => {
-            const transform = transformRow(item)
+          const dataTable: T[] = json.map((item): T => {
+            const transform = transformRow(item) as T;
             return {
-              ...transform, 
-              beginning: transform.beginning?.toString().replace(/\//g, '-'),
-              ending: transform.ending?.toString().replace(/\//g, '-')
-            }
-          })
+              ...transform,
+              beginning: transform.beginning?.toString().replace(/\//g, "-"),
+              ending: transform.ending?.toString().replace(/\//g, "-"),
+            };
+          });
 
           setData(dataTable as T[]);
           setLoading(false);
           resolve(dataTable as T[]);
         } catch (err) {
-          const errMsg = 'Ошибка при чтении Excel файла';
+          console.log(err);
+          const errMsg = "Ошибка при чтении Excel файла";
           setError(errMsg);
           setLoading(false);
           reject(errMsg);
@@ -67,7 +73,7 @@ export function useExcelReader<T>() {
       };
 
       reader.onerror = () => {
-        setError('Ошибка FileReader');
+        setError("Ошибка FileReader");
         setLoading(false);
         reject();
       };
@@ -76,5 +82,8 @@ export function useExcelReader<T>() {
     });
   };
 
-  return { readExcel, data, loading, error };
+  return useMemo(
+    () => ({ readExcel, data, loading, error }),
+    [readExcel, data, loading, error],
+  );
 }

@@ -1,78 +1,78 @@
-import { memo, useEffect, useState, type Dispatch, type SetStateAction } from 'react'
-import type { AssetsType } from './FileReaderList';
+import { memo, useState, type Dispatch, type SetStateAction } from "react";
+import type { AssetsType } from "./FileReaderList";
 
 interface FilterProps {
-    currentTable: AssetsType | null
-    setVisibleColums: Dispatch<SetStateAction<string[]>>
+  currentTable: AssetsType | null;
+  setVisibleColums: Dispatch<SetStateAction<string[]>>;
 }
 function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
-    const [selectedColumn, setSelectedColumn] = useState("all");
-    const [visibleCols, setVisibleCols] = useState(currentTable?.columns.map(c => c.name) ?? []);
+  const [selectedColumn, setSelectedColumn] = useState("all");
+  const [visibleCols, setVisibleCols] = useState(
+    () => currentTable?.columns.map((c) => c.name) ?? [],
+  );
+  const [prevTableId, setPrevTableId] = useState(currentTable?.id);
 
+  if (currentTable && currentTable.id !== prevTableId) {
+    const newColNames = currentTable.columns.map((c) => c.name);
+    setPrevTableId(currentTable.id);
+    setVisibleCols(newColNames);
+  }
 
-    useEffect(() => {
-        if(!currentTable) return
-        const currentName = currentTable.columns.map((col) => col.name)
-        setVisibleCols((prev) => {
-            const merge = [...new Set([...prev, ...currentName])]
-            return merge
-        })
-    }, [currentTable, setVisibleColums])
+  const toggleColumn = (colName: string) => {
+    const updated = visibleCols.includes(colName)
+      ? visibleCols.filter((c) => c !== colName)
+      : [...visibleCols, colName];
 
+    setVisibleCols(updated);
+    setVisibleColums(updated);
+  };
 
-    const toggleColumn = (colName: string) => {
-        const updated = visibleCols.includes(colName)
-            ? visibleCols.filter(c => c !== colName)
-            : [...visibleCols, colName];
+  const handleApplyFilter = () => {
+    if (!currentTable) return;
+    if (selectedColumn === "all") {
+      const allColums = currentTable.columns.map((el) => el.name);
+      setVisibleCols(allColums);
+      setVisibleColums(allColums);
+    } else {
+      setVisibleColums([selectedColumn]);
+      setVisibleCols([selectedColumn]);
+    }
+  };
 
-        setVisibleCols(updated);
-        setVisibleColums(updated);
-    };
-
-    const handleApplyFilter = () => {
-        if(!currentTable) return
-        if (selectedColumn === "all") {
-            const allColums = currentTable.columns.map((el) => el.name)
-            setVisibleCols(allColums)
-            setVisibleColums(allColums)
-        } else {    
-            setVisibleColums([selectedColumn]);
-            setVisibleCols([selectedColumn])
-        }
-    };
-
-
-    const options = currentTable?.columns.map(({ name , label}) => {
-        return (
-            <option key={name} value={name}>{label || name}</option>
-        )
-    })
-
-    const checkbox = currentTable?.columns.map(({ name, label }) => {
-        return (
-            <div key={name}>
-                {label || name}
-                <input
-                    type='checkbox'
-                    checked={visibleCols?.includes(name)}
-                    onChange={() => toggleColumn(name)}
-                />
-            </div>
-        )
-    })
+  const options = currentTable?.columns.map(({ name, label }) => {
     return (
-        <div>
-            <select value={selectedColumn} onChange={(e) => setSelectedColumn(e.target.value)}>
-                <option value="all">all</option>
-                {options}
-            </select>
+      <option key={name} value={name}>
+        {label || name}
+      </option>
+    );
+  });
 
-            <div>
-                {checkbox}
-            </div>
-            <button onClick={handleApplyFilter}>apply</button>
-        </div>
-    )
+  const checkbox = currentTable?.columns.map(({ name, label }) => {
+    return (
+      <div key={name}>
+        {label || name}
+        <input
+          type="checkbox"
+          checked={visibleCols?.includes(name)}
+          onChange={() => toggleColumn(name)}
+        />
+      </div>
+    );
+  });
+  return (
+    <div>
+      <select
+        value={selectedColumn}
+        onChange={(e) => setSelectedColumn(e.target.value)}
+      >
+        <option value="all">all</option>
+        {options}
+      </select>
+
+      <div>{checkbox}</div>
+      <button onClick={handleApplyFilter}>apply</button>
+    </div>
+  );
 }
 
-export default memo(FilterColums)
+export default memo(FilterColums);
