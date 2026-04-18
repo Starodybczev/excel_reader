@@ -1,6 +1,7 @@
-import { memo } from "react";
-import Modal from "../utils/const/Modal";
-import CreateColumnForm from "./CreateColumnForm";
+import { lazy, memo } from "react";
+import Modal from "../../utils/const/Modal";
+
+const CreateColumnForm = lazy(() => import("./components/CreateColumnForm"));
 
 interface PropsModal {
   isOpen: boolean;

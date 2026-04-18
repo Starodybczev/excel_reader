@@ -1,6 +1,6 @@
 import { memo, type FormEvent } from "react";
-import { useRememberAddColumn } from "../utils/hooks/useRememberAddColumn";
-import OptionList from "../utils/const/OptionList";
+import { useRememberAddColumn } from "../../../utils/hooks/useRememberAddColumn";
+import OptionList from "../../../utils/const/OptionList";
 
 function CreateColumnForm() {
   const { newColumn, type, setType, setNewColumn, handleAddColumn } =

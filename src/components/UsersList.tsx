@@ -4,6 +4,7 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useMemo,
   useState,
   type ChangeEvent,
 } from "react";
@@ -14,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 const TableMap = lazy(() => import("../utils/ToMap/TableMap"));
 const AddDataFromTable = lazy(() => import("./AddDataFromTable"));
-const Modals = lazy(() => import("./Modals"));
+const Modals = lazy(() => import("./Modals/Modals"));
 
 export type ColumnType = "text" | "number" | "file" | "link";
 
@@ -40,9 +41,12 @@ function UsersList() {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+  const handleSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.target.value);
+    },
+    [setSearch],
+  );
 
   const { ExportTOexcel } = useDownload({ currentTable });
 
@@ -94,17 +98,31 @@ function UsersList() {
     });
   }, [setNewRow]);
 
-  const columns = { currentTable };
+  const props = useMemo(
+    () => ({ search, currentTable, resetData }),
+    [search, currentTable, resetData],
+  );
 
-  const props = { search, ...columns, resetData };
-
-  const filterProps = {
-    ...columns,
-    filters,
-    visibleColums,
-    setFilters,
-    setVisibleColums,
-  };
+  const filterProps = useMemo(
+    () => ({
+      filters,
+      visibleColums,
+      setFilters,
+      setVisibleColums,
+      search,
+      resetData,
+      currentTable,
+    }),
+    [
+      filters,
+      visibleColums,
+      setFilters,
+      setVisibleColums,
+      currentTable,
+      search,
+      resetData,
+    ],
+  );
 
   return (
     <div>

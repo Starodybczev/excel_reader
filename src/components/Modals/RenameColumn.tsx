@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Modal from "../utils/const/Modal";
-import { useCurrentTable } from "../utils/hooks/useCurrentTable";
-import { useDataContext } from "../context/DataContext";
+import Modal from "../../utils/const/Modal";
+import { useCurrentTable } from "../../utils/hooks/useCurrentTable";
+import { useDataContext } from "../../context/DataContext";
 
 interface RemaneColumnProps {
   isOpen: boolean;

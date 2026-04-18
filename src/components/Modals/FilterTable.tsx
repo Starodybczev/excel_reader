@@ -1,8 +1,8 @@
-import { memo, type Dispatch, type SetStateAction } from "react";
-import Modal from "../utils/const/Modal";
-import FilterColums from "./FilterColums";
-import type { AssetsType } from "./FileReaderList";
+import { lazy, memo, type Dispatch, type SetStateAction } from "react";
+import Modal from "../../utils/const/Modal";
+import type { AssetsType } from "../FileReaderList";
 
+const FilterColums = lazy(() => import("./components/FilterColums"));
 interface FilterProps {
   currentTable: AssetsType | null;
   setVisibleColums: Dispatch<SetStateAction<string[]>>;

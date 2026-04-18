@@ -1,7 +1,7 @@
-import rememberDelColumn from "../utils/hooks/useRememberDelColumn";
-import Modal from "../utils/const/Modal";
-import { useCurrentTable } from "../utils/hooks/useCurrentTable";
 import { memo } from "react";
+import Modal from "../../utils/const/Modal";
+import { useCurrentTable } from "../../utils/hooks/useCurrentTable";
+import useRememberDelColumn from "../../utils/hooks/useRememberDelColumn";
 
 interface PropsModal {
   isOpen: boolean;
@@ -10,7 +10,7 @@ interface PropsModal {
 
 function DeleteColums({ isOpen, handleCloseModal }: PropsModal) {
   const { selectedColumns, setSelectedColumns, handleDeleteColumns } =
-    rememberDelColumn();
+    useRememberDelColumn();
   const { currentTable } = useCurrentTable();
 
   const handleChange = (name: string) => {
