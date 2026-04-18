@@ -1,73 +1,107 @@
-# React + TypeScript + Vite
+cat << "EOF" > README.md
+# 📊 ExcelFlow — Interactive Excel Data Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="public/logo_excell.svg" width="140"/>
+</p>
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18+-61DAFB?logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TypeScript-5+-3178C6?logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Vite-Fast%20Build-646CFF?logo=vite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SCSS-Styling-CC6699?logo=sass&logoColor=white"/>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📱 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**ExcelFlow** is a modern web application for working with Excel files прямо в браузере.
 
-## Expanding the ESLint configuration
+Upload files, edit data, manage columns, and export results — without opening Excel.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ✨ Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 📂 Upload Excel files  
+- 🖱 Drag & drop support  
+- 📊 Multiple tables support  
+- 🔀 Quick table switching  
+- 🧾 Unique ID for each table  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Table Editing
+- ➕ Add rows and columns  
+- ✏️ Edit cell values  
+- 📝 Rename columns  
+- ❌ Delete columns  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Column Types
+- 🔤 Text  
+- 🔢 Number  
+- 🔗 Link  
+- 📁 File  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Data Control
+- 🔍 Filtering system  
+- 👁 Toggle column visibility  
+- 🎯 Focus on a single column  
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Export
+- 💾 Download edited data as Excel file  
+
+---
+
+## 🧱 Architecture
+
+### State Management
+- React Hooks  
+- Custom hooks  
+
+### File Processing
+- Excel parsing and generation  
+- Dynamic data handling  
+
+### UI
+- Component-based structure  
+- SCSS styling  
+
+---
+
+## 🖼 Screenshots
+
+### Table View
+<p align="center">
+  <img src="screens/table_view.png" width="250"/>
+</p>
+
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repository  
+2. Install dependencies  
+   npm install  
+
+3. Start dev server  
+   npm run dev  
+
+4. Open in browser  
+
+---
+
+## 🧩 Tech Stack
+
+- React  
+- TypeScript  
+- Vite  
+- SCSS  
+
+---
+
+## 📄 License
+
+Educational project for learning and portfolio use.
+
+EOF
