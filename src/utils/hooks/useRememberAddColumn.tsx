@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useDataContext } from "../../context/DataContext";
-import type { ColumnType } from "../../pages/UsersList";
+import type { ColumnType, AssetRow } from "../../types";
 import { useCurrentTable } from "./useCurrentTable";
-import type { AssetRow } from "../../types";
 
 export function useRememberAddColumn() {
   const [newColumn, setNewColumn] = useState("");

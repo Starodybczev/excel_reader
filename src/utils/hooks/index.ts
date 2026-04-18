@@ -4,10 +4,8 @@ export { useCurrentTable } from "./useCurrentTable"
 export { useMoodal } from "./useMoodal"
 export { useRememberAddColumn } from "./useRememberAddColumn"
 export { useRememberDelColumn } from "./useRememberDelColumn"
-export { useRememberSelectImage } from "./useRememberSelectImage"
+export { default as useRememberSelectImage } from "./useRememberSelectImage"
 export { useRenderCell } from "./useRenderCell"
 export { useTable } from "./useTable"
 
 
-
-export { type AssetRow } from "./useExcelReader"
