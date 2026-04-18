@@ -18,6 +18,8 @@ function FileReaderList({ DataUsers }: DataListProps) {
   const [assets, setAssets] = useState<AssetsType[]>([]);
   const { readExcel } = useExcelReader<AssetRow>();
 
+  if (!assets) return <p>Loading...</p>;
+
   const handleCheckFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
