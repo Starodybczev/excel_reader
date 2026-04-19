@@ -15,6 +15,7 @@ interface TableRowProps {
   ) => void;
   isRowEditing: boolean;
   fileColumn: FieldType | undefined;
+  handleCancell: () => void;
 }
 
 const TableRow = memo(
@@ -24,6 +25,7 @@ const TableRow = memo(
     currentColumns,
     visibleColums,
     handlerenderCell,
+    handleCancell,
     handleEdit,
     handleDelete,
     isRowEditing,
@@ -39,13 +41,20 @@ const TableRow = memo(
           ))}
         <td>
           <div className="btn_block_edit">
+            {isRowEditing ? (
+              <button className="edit_btn" onClick={handleCancell}>
+                cancel
+              </button>
+            ) : (
+              <button
+                className="edit_btn"
+                onClick={() => handleEdit({ row, file })}
+              >
+                Edit
+              </button>
+            )}
             <button
-              className="edit_btn"
-              onClick={() => handleEdit({ row, file })}
-            >
-              Edit
-            </button>
-            <button
+              disabled={isRowEditing}
               className="btn_del"
               onClick={() => handleDelete(file.id, row.id!)}
             >

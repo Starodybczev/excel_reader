@@ -24,7 +24,7 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
     isUpdate,
     fileRef,
   } = useDataContext();
-  const { handleDelete, handleEdit } = useTable();
+  const { handleDelete, handleEdit, handleCancell } = useTable();
   const { handlerenderCell } = useRenderCell();
 
   const props = useMemo(
@@ -128,6 +128,7 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
                     visibleColums,
                     currentColumns,
                     handlerenderCell,
+                    handleCancell,
                     handleEdit,
                     handleDelete,
                     handleUPloadImages,
@@ -152,6 +153,7 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
     visibleColums,
     editConfig,
     props,
+    handleCancell,
     handleEdit,
     handleDelete,
     handleUPloadImages,

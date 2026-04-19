@@ -10,6 +10,8 @@ function UpdateTable({ disabled }: Props) {
   const { newRow, editConfig, setNewRow } = useDataContext();
   const { handleUpdateTable, handleAdd } = useTable();
 
+  const isInvalid = !newRow.name || newRow.name.trim() === "";
+
   const CreateTask = () => {
     if (editConfig) {
       handleUpdateTable({ newRow: newRow });
@@ -28,7 +30,7 @@ function UpdateTable({ disabled }: Props) {
   return (
     <button
       className="btn_add__update"
-      disabled={disabled}
+      disabled={disabled || isInvalid}
       onClick={CreateTask}
     >
       {editConfig ? "save change" : "add"}

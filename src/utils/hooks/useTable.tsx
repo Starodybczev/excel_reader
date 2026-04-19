@@ -83,6 +83,20 @@ export function useTable() {
     [setUsers],
   );
 
+  const handleCancell = useCallback(() => {
+    setEditConfig(null);
+    setIsUpdate(false);
+    setNewRow({
+      name: "",
+      age: undefined,
+      images: "",
+      beginning: "",
+      ending: "",
+      group: "",
+    } as AssetRow);
+    handleReset();
+  }, [setEditConfig, setIsUpdate, setNewRow, handleReset]);
+
   const handleEdit = useCallback(
     ({ row, file }: EditProps) => {
       setIsUpdate(true);
@@ -93,7 +107,13 @@ export function useTable() {
   );
 
   return useMemo(
-    () => ({ handleDelete, handleEdit, handleUpdateTable, handleAdd }),
-    [handleDelete, handleEdit, handleUpdateTable, handleAdd],
+    () => ({
+      handleCancell,
+      handleDelete,
+      handleEdit,
+      handleUpdateTable,
+      handleAdd,
+    }),
+    [handleDelete, handleEdit, handleUpdateTable, handleAdd, handleCancell],
   );
 }
