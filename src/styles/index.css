@@ -192,15 +192,6 @@
   transform: scale(0.2);
 }
 
-
-  .dis{
-    &:disabled{
-      background-color: rgb(138, 185, 138) !important;
-      cursor: not-allowed !important;
-      transform: scale(1)  !important;
-    }
-  }
-
 .checkbox_block {
   display: flex;
   align-items: center;
@@ -401,13 +392,6 @@
   transform: scale(0.2);
 }
 
-.louder {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .btn_block_edit {
   display: flex;
   align-items: center;
@@ -540,4 +524,10 @@ td {
     padding: 0, 20px;
     display: block;
   }
+}
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }/*# sourceMappingURL=index.css.map */

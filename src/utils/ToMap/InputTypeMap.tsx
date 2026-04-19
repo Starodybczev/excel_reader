@@ -37,7 +37,7 @@ function InputTypeMap({
     if (!currentTable) return null;
     return columns
       .filter(({ name }) => visibleColums.includes(name))
-      .map(({ type, name }) => {
+      .map(({ type, name, label }) => {
         if (type === "file") {
           return (
             <td key={name}>
@@ -59,7 +59,7 @@ function InputTypeMap({
               <input
                 type="number"
                 name={name}
-                placeholder={`add ${name}`}
+                placeholder={`add ${label || name}`}
                 value={newRow[name] ?? ""}
                 onChange={handleChangeValue}
               />
@@ -72,7 +72,7 @@ function InputTypeMap({
               <input
                 type="url"
                 name={name}
-                placeholder={`add ${name}`}
+                placeholder={`add ${label || name}`}
                 value={newRow[name] ?? ""}
                 onChange={handleChangeValue}
               />
@@ -83,7 +83,7 @@ function InputTypeMap({
           <td key={name}>
             <input
               type="text"
-              placeholder={`add ${name}`}
+              placeholder={`add ${label || name}`}
               name={name}
               value={newRow[name] ?? ""}
               onChange={handleChangeValue}

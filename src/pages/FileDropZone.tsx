@@ -4,6 +4,7 @@ import { useDropzone, type FileRejection } from "react-dropzone";
 import { Link } from "react-router-dom";
 import { useExcelReader } from "../utils";
 import type { AssetsType, AssetRow } from "../types";
+import { getRoute } from "../utils/const/getRoute";
 
 function FileDropZone() {
   const { users, setUsers } = useDataContext();
@@ -67,7 +68,10 @@ function FileDropZone() {
   const DropZone = users.map(({ id, name }) => {
     return (
       <div onClick={(e) => e.stopPropagation()} className="card_file" key={id}>
-        <Link onClick={(e) => e.stopPropagation()} to={`/file/${id}`}>
+        <Link
+          onClick={(e) => e.stopPropagation()}
+          to={getRoute.current_table(id)}
+        >
           {name}
         </Link>
         <button onClick={(e) => handleDelateFile(id, e)}>x</button>

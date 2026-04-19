@@ -4,32 +4,17 @@ import { Route, Routes } from "react-router-dom";
 const FileDropZone = lazy(() => import("../../pages/FileDropZone"));
 const UsersList = lazy(() => import("../../pages/UsersList"));
 
-import Louder from "../../components/louders/logo_excell.svg";
+import { ROUTES } from "./routes.config";
+import Loader from "../Loader";
 
 function AppRouter() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Suspense
-            fallback={
-              <img className="louder" style={{ width: 200 }} src={Louder} />
-            }
-          >
-            <FileDropZone />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/file/:id"
-        element={
-          <Suspense fallback={"louding"}>
-            <UsersList />
-          </Suspense>
-        }
-      />
-    </Routes>
+    <Suspense fallback={<Loader width={200} />}>
+      <Routes>
+        <Route path={ROUTES.HOME} element={<FileDropZone />} />
+        <Route path={ROUTES.TABLE_ID} element={<UsersList />} />
+      </Routes>
+    </Suspense>
   );
 }
 export default memo(AppRouter);
