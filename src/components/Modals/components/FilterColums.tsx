@@ -7,76 +7,80 @@ interface FilterProps {
 }
 function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
   const [selectedColumn, setSelectedColumn] = useState("all");
-  const [visibleCols, setVisibleCols] = useState(
-    () => currentTable?.columns.map((c) => c.name) ?? [],
+
+  const [hiddenCols, setHiddenCols] = useState<string[]>([]);
+
+  const allColumnNames = currentTable?.columns.map((c) => c.name) ?? [];
+  const currentVisible = allColumnNames.filter(
+    (name) => !hiddenCols.includes(name),
   );
 
-  const [prevColumns, setPrevColumns] = useState(currentTable?.columns);
+  const handleSelectChange = (val: string) => {
+    setSelectedColumn(val);
+    if (!currentTable) return;
 
-  if (currentTable?.columns !== prevColumns) {
-    const allColNames = currentTable?.columns.map((c) => c.name) ?? [];
-    setPrevColumns(currentTable?.columns);
-    setVisibleCols(allColNames);
-  }
+    if (val === "all") {
+      setHiddenCols([]);
+    } else {
+      const others = allColumnNames.filter((name) => name !== val);
+      setHiddenCols(others);
+    }
+  };
 
   const toggleColumn = (colName: string) => {
-    const updated = visibleCols.includes(colName)
-      ? visibleCols.filter((c) => c !== colName)
-      : [...visibleCols, colName];
-
-    setVisibleCols(updated);
+    setHiddenCols((prev) =>
+      prev.includes(colName)
+        ? prev.filter((c) => c !== colName)
+        : [...prev, colName],
+    );
   };
 
   const handleApplyFilter = () => {
     if (!currentTable) return;
 
-    if (selectedColumn === "all") {
-      const allColNames = currentTable.columns.map((el) => el.name);
+    const result = allColumnNames.filter((name) => !hiddenCols.includes(name));
 
-      setVisibleCols(allColNames);
-
-      setVisibleColums(allColNames);
-    } else {
-      const singleCol = [selectedColumn];
-      setVisibleColums(singleCol);
-      setVisibleCols(singleCol);
-    }
+    setVisibleColums(result.length > 0 ? result : allColumnNames);
   };
 
-  const options = currentTable?.columns.map(({ name, label }) => {
-    return (
-      <option key={name} value={name}>
-        {label || name}
-      </option>
-    );
-  });
-
-  const checkbox = currentTable?.columns.map(({ name, label }) => {
-    return (
-      <div className="checkbox" key={name}>
-        {label || name}
-        <input
-          type="checkbox"
-          checked={visibleCols?.includes(name)}
-          onChange={() => toggleColumn(name)}
-        />
-      </div>
-    );
-  });
   return (
     <div className="filter_block_madal">
       <h1>Filter Table</h1>
+
       <select
         className="select_table"
         value={selectedColumn}
-        onChange={(e) => setSelectedColumn(e.target.value)}
+        onChange={(e) => handleSelectChange(e.target.value)}
       >
+        <option value="" disabled>
+          select column
+        </option>
         <option value="all">all</option>
-        {options}
+        {currentTable?.columns.map(({ name, label }) => (
+          <option key={name} value={name}>
+            {label || name}
+          </option>
+        ))}
       </select>
 
-      <div className="checkbox_block">{checkbox}</div>
-      <button className="btn_add" onClick={handleApplyFilter}>
+      <div className="checkbox_block">
+        {currentTable?.columns.map(({ name, label }) => (
+          <div className="checkbox" key={name}>
+            <span>{label || name}</span>
+            <input
+              type="checkbox"
+              checked={!hiddenCols.includes(name)}
+              onChange={() => toggleColumn(name)}
+            />
+          </div>
+        ))}
+      </div>
+
+      <button
+        disabled={currentVisible.length === 0}
+        className="btn_add dis"
+        onClick={handleApplyFilter}
+      >
         apply
       </button>
     </div>
