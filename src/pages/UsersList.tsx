@@ -11,7 +11,7 @@ import {
 import { useDownload, useCurrentTable } from "../utils";
 import { useDataContext } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
-import Louder from "../components/louders/logo_excell.svg";
+import Loader from "../components/Loader";
 
 const TableMap = lazy(() => import("../utils/ToMap/TableMap"));
 const AddDataFromTable = lazy(() => import("../components/AddDataFromTable"));
@@ -23,11 +23,11 @@ export interface filterProps {
 }
 
 function UsersList() {
-  const { users, setNewRow } = useDataContext();
+  const { users, setNewRow, visibleColums, setVisibleColums } =
+    useDataContext();
   const { currentTable } = useCurrentTable();
 
   const [filters, setFilters] = useState<filterProps | null>(null);
-  const [visibleColums, setVisibleColums] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
@@ -76,7 +76,7 @@ function UsersList() {
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [currentTable?.columns]);
+  }, [currentTable?.columns, setVisibleColums]);
 
   const resetData = useCallback(() => {
     setNewRow({
@@ -115,13 +115,9 @@ function UsersList() {
   );
 
   return (
-    <div className="table_block">
-      <div className="container">
-        <Suspense
-          fallback={
-            <img className="louder" style={{ width: 200 }} src={Louder} />
-          }
-        >
+    <Suspense fallback={<Loader />}>
+      <div className="table_block">
+        <div className="container">
           <div className="input_block">
             {users.length > 0 && (
               <input
@@ -145,11 +141,13 @@ function UsersList() {
             {users.length > 0 && <Modals {...filterProps} />}
           </div>
           <div className="table">
-            <TableMap
-              users={currentTable ? [currentTable] : []}
-              {...props}
-              {...filterProps}
-            />
+            <div className="table_wrapper">
+              <TableMap
+                users={currentTable ? [currentTable] : []}
+                {...props}
+                {...filterProps}
+              />
+            </div>
             <div
               className="button__block"
               style={{ display: "flex", gap: "10px" }}
@@ -162,9 +160,9 @@ function UsersList() {
               )}
             </div>
           </div>
-        </Suspense>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
 export default memo(UsersList);

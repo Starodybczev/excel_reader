@@ -4,7 +4,7 @@ import { useCurrentTable } from "./useCurrentTable";
 
 export function useRememberDelColumn() {
   const [selectedColumns, setSelectedColumns] = useState<string[]>([]);
-  const { setUsers } = useDataContext();
+  const { setUsers, setNewRow } = useDataContext();
   const { currentTableId } = useCurrentTable();
 
   const handleDeleteColumns = useCallback(() => {
@@ -37,8 +37,16 @@ export function useRememberDelColumn() {
       }),
     );
 
+    setNewRow((prev) => {
+      const updatedNewRow = { ...prev };
+      selectedColumns.forEach((col) => {
+        delete updatedNewRow[col];
+      });
+      return updatedNewRow;
+    });
+
     setSelectedColumns([]);
-  }, [currentTableId, selectedColumns, setUsers]);
+  }, [currentTableId, selectedColumns, setUsers, setNewRow]);
 
   return useMemo(
     () => ({

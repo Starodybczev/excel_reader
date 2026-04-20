@@ -32,6 +32,7 @@ export function DataProvider({ children }: Props) {
   const [newRow, setNewRow] = useState<AssetRow>(RowData);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [editConfig, setEditConfig] = useState<EditConfigType | null>(null);
+  const [visibleColums, setVisibleColums] = useState<string[]>([]);
 
   const { handleUPloadImages, fileRef, handleReset } = useRememberSelectImage({
     setNewRow,
@@ -45,6 +46,8 @@ export function DataProvider({ children }: Props) {
   const contextValue = useMemo(
     () => ({
       handleChangeValue,
+      visibleColums,
+      setVisibleColums,
       users,
       setUsers,
       newRow,
@@ -59,6 +62,8 @@ export function DataProvider({ children }: Props) {
     }),
     [
       handleChangeValue,
+      visibleColums,
+      setVisibleColums,
       users,
       newRow,
       isUpdate,

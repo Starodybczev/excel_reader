@@ -1,4 +1,4 @@
-import {
+import React, {
   createContext,
   useContext,
   type ChangeEvent,
@@ -17,6 +17,8 @@ interface AssetsContextType {
   users: AssetsType[];
   setUsers: React.Dispatch<React.SetStateAction<AssetsType[]>>;
   newRow: AssetRow;
+  visibleColums: string[];
+  setVisibleColums: React.Dispatch<React.SetStateAction<string[]>>;
   isUpdate: boolean;
   handleChangeValue: (e: ChangeEvent<HTMLInputElement>) => void;
   handleUPloadImages: (

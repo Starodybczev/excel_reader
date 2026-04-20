@@ -6,6 +6,8 @@ td {
 }
 
 
+
+
 .thead_body {
     position: sticky;
     top: 0;
@@ -13,16 +15,14 @@ td {
 }
 
 .table_data {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     margin-top: 300px;
-    max-height: 65vh;
+
     margin-bottom: 20px;
     border-radius: 8px;
 
 }
+
 
 .error_filter{
     display: flex;
@@ -58,8 +58,21 @@ td {
     transition: background-color 0.2s ease;
 }
 
+select{
+    cursor: pointer;
+}
+
+
+td:empty{
+    background-color: rgb(209, 128, 128);
+}
+
 .table_styles tr:hover td {
     background-color: #f7fafc;
+
+    &:empty {
+        background-color: rgb(230, 200, 200);
+    }
 }
 
 .table_styles tr:last-child td {

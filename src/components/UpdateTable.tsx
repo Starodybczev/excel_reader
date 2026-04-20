@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { useDataContext } from "../context/DataContext";
-import { useTable } from "../utils";
+import { useCurrentTable, useTable } from "../utils";
+import type { AssetRow } from "../types";
 
 interface Props {
   disabled: boolean;
@@ -9,8 +10,7 @@ interface Props {
 function UpdateTable({ disabled }: Props) {
   const { newRow, editConfig, setNewRow } = useDataContext();
   const { handleUpdateTable, handleAdd } = useTable();
-
-  const isInvalid = !newRow.name || newRow.name.trim() === "";
+  const { currentTable } = useCurrentTable();
 
   const CreateTask = () => {
     if (editConfig) {
@@ -18,19 +18,18 @@ function UpdateTable({ disabled }: Props) {
     } else {
       handleAdd({ newRow: newRow });
     }
-    setNewRow({
-      name: "",
-      age: undefined,
-      images: "",
-      beginning: "",
-      ending: "",
-      group: "",
-    });
+    const emptyRow =
+      currentTable?.columns.reduce((acc, col) => {
+        acc[col.name] = "";
+        return acc;
+      }, {} as AssetRow) ?? ({} as AssetRow);
+
+    setNewRow(emptyRow);
   };
   return (
     <button
       className="btn_add__update"
-      disabled={disabled || isInvalid}
+      disabled={disabled}
       onClick={CreateTask}
     >
       {editConfig ? "save change" : "add"}

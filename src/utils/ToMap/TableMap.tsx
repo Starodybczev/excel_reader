@@ -94,56 +94,54 @@ function TableMap({ search, visibleColums, users, filters }: TableMapType) {
           key={file.id}
           style={{ marginBottom: "20px" }}
         >
-          <div className="container">
-            <table
-              className="table_styles"
-              border={1}
-              style={{
-                width: "100%",
-                borderCollapse: "separate",
-                borderSpacing: 0,
-              }}
-            >
-              <thead className="thead_body">
-                <tr style={{ backgroundColor: "#f2f2f2" }}>
-                  {currentColumns
-                    .filter(({ name }) => visibleColums.includes(name))
-                    .map(({ name, label, placeholder }) => (
-                      <th className="th" key={name}>
-                        {label || name || placeholder}
-                      </th>
-                    ))}
-                  <th>Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {file.rows.map((row) => {
-                  const isRowEditing =
-                    editConfig?.rowId === row.id &&
-                    editConfig?.fileId === file.id;
+          <table
+            className="table_styles"
+            border={1}
+            style={{
+              minWidth: "max-content",
+              borderCollapse: "separate",
+              borderSpacing: 0,
+            }}
+          >
+            <thead className="thead_body">
+              <tr style={{ backgroundColor: "#f2f2f2" }}>
+                {currentColumns
+                  .filter(({ name }) => visibleColums.includes(name))
+                  .map(({ name, label, placeholder }) => (
+                    <th className="th" key={name}>
+                      {label || name || placeholder}
+                    </th>
+                  ))}
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {file.rows.map((row) => {
+                const isRowEditing =
+                  editConfig?.rowId === row.id &&
+                  editConfig?.fileId === file.id;
 
-                  const activity = {
-                    row,
-                    file,
-                    visibleColums,
-                    currentColumns,
-                    handlerenderCell,
-                    handleCancell,
-                    handleEdit,
-                    handleDelete,
-                    handleUPloadImages,
-                    fileColumn,
-                    isRowEditing,
-                  };
+                const activity = {
+                  row,
+                  file,
+                  visibleColums,
+                  currentColumns,
+                  handlerenderCell,
+                  handleCancell,
+                  handleEdit,
+                  handleDelete,
+                  handleUPloadImages,
+                  fileColumn,
+                  isRowEditing,
+                };
 
-                  return <TableRow key={row.id} {...activity} />;
-                })}
-                <tr>
-                  <InputTypeMap {...props} />
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                return <TableRow key={row.id} {...activity} />;
+              })}
+              <tr>
+                <InputTypeMap {...props} />
+              </tr>
+            </tbody>
+          </table>
         </div>
       );
     });

@@ -14,6 +14,10 @@
     }
 }
 
+
+
+
+
 .input__search,
 .select_option {
     display: flex;
@@ -45,18 +49,19 @@
     align-items: center;
     flex-direction: column;
     gap: 20px;
+
 }
 
-.button__block {
-    max-width: 1070px;
-    min-width: 400px;
-    width: 100%;
-    padding: 0 50px;
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 10px;
+.table_styles {
+    margin: 0 auto;
 }
+
+
+.table_wrapper{
+    width: 100%;
+    overflow-x: auto;
+}
+
 
 .select_table{
     padding: 10px;
