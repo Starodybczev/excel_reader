@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from "react";
-import { useDataContext } from "../../context/DataContext";
+import { defaultColumns, useDataContext } from "../../context/DataContext";
 import type { AssetRow, AssetsType } from "../../types";
 import { useCurrentTable } from "./useCurrentTable";
+import { useNavigate } from "react-router-dom";
 
 interface updateProps {
   newRow: AssetRow;
@@ -13,9 +14,11 @@ interface EditProps {
 
 export function useTable() {
   const { currentTableId } = useCurrentTable();
+  const navigate = useNavigate();
   const {
     handleReset,
     setUsers,
+    users,
     setIsUpdate,
     editConfig,
     setNewRow,
@@ -106,14 +109,61 @@ export function useTable() {
     [setIsUpdate, setNewRow, setEditConfig],
   );
 
+  const handleCreateTable = useCallback(
+    (tableName: string) => {
+      if (!tableName.trim()) return;
+
+      const isExist = users.some(
+        (item) => item.name.toLowerCase() === tableName.toLowerCase(),
+      );
+
+      if (isExist) {
+        alert("такая таблица уже есть");
+        return;
+      }
+
+      const id = crypto.randomUUID();
+      const columns = defaultColumns.map((item) => ({ ...item }));
+
+      const newTable: AssetsType = {
+        id,
+        name: tableName,
+        columns,
+        rows: [],
+      };
+
+      setUsers((prev) => [...prev, newTable]);
+
+      navigate(`/create/file/${id}`);
+    },
+    [setUsers, navigate, users],
+  );
+
+  const handleDelTable = useCallback(
+    (TABLE_ID: string) => {
+      setUsers((prev) => prev.filter((item) => item.id !== TABLE_ID));
+    },
+    [setUsers],
+  );
+
   return useMemo(
     () => ({
       handleCancell,
+      handleCreateTable,
       handleDelete,
       handleEdit,
       handleUpdateTable,
       handleAdd,
+      handleDelTable,
     }),
-    [handleDelete, handleEdit, handleUpdateTable, handleAdd, handleCancell],
+    [
+      handleDelete,
+      handleEdit,
+      handleCreateTable,
+      handleUpdateTable,
+      handleAdd,
+      handleCancell,
+      handleDelTable,
+    ],
   );
 }

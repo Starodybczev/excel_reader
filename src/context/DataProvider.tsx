@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import type { AssetsType, AssetRow } from "../types";
-import { useRememberSelectImage } from "../utils";
+import { useLocalStorage, useRememberSelectImage } from "../utils";
 import { DataContext } from "./DataContext";
 
 interface EditConfigType {
@@ -28,7 +28,10 @@ type Props = {
 };
 
 export function DataProvider({ children }: Props) {
-  const [users, setUsers] = useState<AssetsType[]>([]);
+  const [users, setUsers] = useLocalStorage<AssetsType[]>(
+    "excel_tables_data",
+    [],
+  );
   const [newRow, setNewRow] = useState<AssetRow>(RowData);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [editConfig, setEditConfig] = useState<EditConfigType | null>(null);
@@ -65,12 +68,16 @@ export function DataProvider({ children }: Props) {
       visibleColums,
       setVisibleColums,
       users,
+      setUsers,
       newRow,
       isUpdate,
+      setIsUpdate,
       handleReset,
       handleUPloadImages,
       fileRef,
+      setNewRow,
       editConfig,
+      setEditConfig,
     ],
   );
 

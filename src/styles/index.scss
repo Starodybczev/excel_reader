@@ -1,10 +1,63 @@
 @use "./_main.scss";
 
 
+.btn_select_option{
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+    background-color: black;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: 1s;
+
+    &:active{
+        transform: scale(0.1);
+    }
+
+    &:hover{
+        background-color: rgb(43, 42, 42);
+    }
+
+        .image_asset {
+            width: 80px;
+        }
+}
+
+
+
+.block_sselect{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img{
+        filter: brightness(0) invert(1);
+        width: 20px;
+    }
+}
+
 
 .loader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media(max-width: 1024px){
+    .btn_select_option{
+        width: 120px;
+        height: 120px;
+
+
+        .image_asset {
+            width: 50px;
+        }
+    }
 }

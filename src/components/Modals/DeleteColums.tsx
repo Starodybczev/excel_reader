@@ -30,11 +30,19 @@ function DeleteColums({ isOpen, handleCloseModal }: PropsModal) {
       </div>
     );
   });
+
+  const DeleteColumn = () => {
+    handleDeleteColumns();
+    handleCloseModal();
+  };
+
+  const disable = selectedColumns.length === 0;
+
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
       <h1>Delete Column</h1>
       <div className="checkbox_block">{checkbox}</div>
-      <button className="btn_add" onClick={handleDeleteColumns}>
+      <button disabled={disable} className="btn_add" onClick={DeleteColumn}>
         delete
       </button>
     </Modal>

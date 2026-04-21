@@ -57,7 +57,7 @@ function UsersList() {
   const handleChangeOption = (e: ChangeEvent<HTMLSelectElement>) => {
     const tableID = e.target.value;
     if (!tableID) return;
-    navigate(`/file/${tableID}`);
+    navigate(`/select/file/${tableID}`);
   };
 
   useEffect(() => {

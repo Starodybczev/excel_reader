@@ -12,7 +12,7 @@ function CreateColumn({ isOpen, handleCloseModal }: PropsModal) {
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
       <h1>Create Column</h1>
-      <CreateColumnForm />
+      <CreateColumnForm handleCloseModal={handleCloseModal} />
     </Modal>
   );
 }

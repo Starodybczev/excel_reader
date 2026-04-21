@@ -7,5 +7,6 @@ export { useRememberDelColumn } from "./useRememberDelColumn"
 export { default as useRememberSelectImage } from "./useRememberSelectImage"
 export { useRenderCell } from "./useRenderCell"
 export { useTable } from "./useTable"
+export {useLocalStorage} from "./useLocalStorage"
 
 

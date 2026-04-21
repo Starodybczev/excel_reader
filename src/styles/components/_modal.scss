@@ -79,6 +79,28 @@
 
 }
 
+.create_table_btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 7px;
+    background-color: blueviolet;
+    cursor: pointer;
+    transition: 1s;
+
+    &:hover{
+        background-color: rgb(111, 35, 182);
+    }
+    &:active{
+        transform: scale(0.2);
+    }
+
+    .icon-white {
+        width: 20px;
+        filter: brightness(0) invert(1);
+    }
+}
+
 
 .create_modal{
     width: 40px;
@@ -225,6 +247,12 @@
     
             &:active {
                 transform: scale(0.2);
+            }
+
+            &:disabled{
+                background-color: rgb(184, 204, 177);
+                transform: scale(1);
+                cursor: not-allowed;
             }
         }
 

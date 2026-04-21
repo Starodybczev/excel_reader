@@ -13,11 +13,14 @@ import Add from "../../assets/add.svg";
 import Delete from "../../assets/bin.svg";
 import Filter from "../../assets/filter.svg";
 import Edit from "../../assets/write.svg";
+import Create from "../../assets/tabs.svg";
 
 const CreateColumn = lazy(() => import("./CreateColumn"));
 const DeleteColums = lazy(() => import("./DeleteColums"));
 const FilterTable = lazy(() => import("./FilterTable"));
 const RenameColumn = lazy(() => import("./RenameColumn"));
+const CreateTableModal = lazy(() => import("./CreateTableModal"));
+const DeleteTable = lazy(() => import("./DeleteTable"));
 
 interface FilterProps {
   currentTable: AssetsType | null;
@@ -29,6 +32,9 @@ function Modals({ currentTable, setVisibleColums }: FilterProps) {
   const deleteModal = useMoodal();
   const filterModal = useMoodal();
   const editColumn = useMoodal();
+  const createTable = useMoodal();
+  const deleteTable = useMoodal();
+
   const { users } = useDataContext();
 
   return (
@@ -51,6 +57,14 @@ function Modals({ currentTable, setVisibleColums }: FilterProps) {
         <RenameColumn
           isOpen={editColumn.isOpen}
           handleCloseModal={editColumn.handleCloseModal}
+        />
+        <CreateTableModal
+          isOpen={createTable.isOpen}
+          handleCloseModal={createTable.handleCloseModal}
+        />
+        <DeleteTable
+          isOpen={deleteTable.isOpen}
+          handleCloseModal={deleteTable.handleCloseModal}
         />
 
         <div className="modal_block_contant">
@@ -79,6 +93,18 @@ function Modals({ currentTable, setVisibleColums }: FilterProps) {
                 onClick={editColumn.handleOpenModal}
               >
                 <img className="icon-white" src={Edit} />
+              </button>
+              <button
+                onClick={createTable.handleOpenModal}
+                className="create_table_btn"
+              >
+                <img className="icon-white" src={Create} />
+              </button>
+              <button
+                onClick={deleteTable.handleOpenModal}
+                className="delete_modal"
+              >
+                <img className="icon-white" src={Delete} />
               </button>
             </>
           )}

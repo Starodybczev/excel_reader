@@ -23,6 +23,7 @@ export default function RenameColumn({
       </option>
     );
   });
+  const disable = !newLabel.trim();
 
   const handleApply = () => {
     if (!currentTable || !selectedColumn || !newLabel.trim()) return;
@@ -62,10 +63,12 @@ export default function RenameColumn({
         <input
           type="text"
           placeholder="new name"
+          required
+          value={newLabel}
           onChange={(e) => setNewLabel(e.target.value)}
         />
       </div>
-      <button className={"btn_add"} onClick={handleApply}>
+      <button disabled={disable} className={"btn_add"} onClick={handleApply}>
         apply
       </button>
     </Modal>

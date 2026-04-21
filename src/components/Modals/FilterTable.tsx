@@ -19,7 +19,11 @@ function FilterTable({
   const filterProps = { currentTable, setVisibleColums };
   return (
     <Modal isOpen={isOpen} closeModal={handleCloseModal}>
-      <FilterColums key={currentTable?.id} {...filterProps} />
+      <FilterColums
+        handleCloseModal={handleCloseModal}
+        key={currentTable?.id}
+        {...filterProps}
+      />
     </Modal>
   );
 }

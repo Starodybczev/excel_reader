@@ -1,13 +1,19 @@
 import { memo, type FormEvent } from "react";
 import { useRememberAddColumn, OptionList } from "../../../utils";
 
-function CreateColumnForm() {
+interface props {
+  handleCloseModal: () => void;
+}
+
+function CreateColumnForm({ handleCloseModal }: props) {
   const { newColumn, type, setType, setNewColumn, handleAddColumn } =
     useRememberAddColumn();
 
   const handleAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleAddColumn();
+    setNewColumn("");
+    handleCloseModal();
   };
 
   return (
@@ -22,7 +28,9 @@ function CreateColumnForm() {
         />
         <OptionList type={type} setType={setType} />
       </div>
-      <button className="btn_add">add column</button>
+      <button disabled={!newColumn.trim()} className="btn_add">
+        add column
+      </button>
     </form>
   );
 }

@@ -2,5 +2,8 @@
  
 export const getRoute = {
     home: () => ROUTES.HOME,
-    current_table: (id: string) => ROUTES.TABLE_ID.replace(":id", id)
+    create: () => ROUTES.CREATE_TABLE,
+    select: () => ROUTES.SELECT,
+    current_created_table: (id: string) => ROUTES.CREATE_FILE.replace(":id", id),
+    current_table: (id: string) => ROUTES.SELECT_FILE.replace(":id", id)
 }

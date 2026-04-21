@@ -4,8 +4,13 @@ import type { AssetsType } from "../../../types";
 interface FilterProps {
   currentTable: AssetsType | null;
   setVisibleColums: Dispatch<SetStateAction<string[]>>;
+  handleCloseModal: () => void;
 }
-function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
+function FilterColums({
+  currentTable,
+  setVisibleColums,
+  handleCloseModal,
+}: FilterProps) {
   const [selectedColumn, setSelectedColumn] = useState("all");
 
   const [hiddenCols, setHiddenCols] = useState<string[]>([]);
@@ -41,6 +46,7 @@ function FilterColums({ currentTable, setVisibleColums }: FilterProps) {
     const result = allColumnNames.filter((name) => !hiddenCols.includes(name));
 
     setVisibleColums(result.length > 0 ? result : allColumnNames);
+    handleCloseModal();
   };
 
   return (
