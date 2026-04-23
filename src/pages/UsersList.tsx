@@ -141,13 +141,6 @@ function UsersList() {
             {users.length > 0 && <Modals {...filterProps} />}
           </div>
           <div className="table">
-            <div className="table_wrapper">
-              <TableMap
-                users={currentTable ? [currentTable] : []}
-                {...props}
-                {...filterProps}
-              />
-            </div>
             <div
               className="button__block"
               style={{ display: "flex", gap: "10px" }}
@@ -158,6 +151,13 @@ function UsersList() {
                   download
                 </button>
               )}
+            </div>
+            <div className="table_wrapper">
+              <TableMap
+                users={currentTable ? [currentTable] : []}
+                {...props}
+                {...filterProps}
+              />
             </div>
           </div>
         </div>

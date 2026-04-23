@@ -57,9 +57,11 @@
 }
 
 
-.table_wrapper{
+.table_wrapper {
     width: 100%;
-    overflow-x: auto;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto; 
 }
 
 

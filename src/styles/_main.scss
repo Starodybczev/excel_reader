@@ -91,15 +91,12 @@
 
 
 .button__block {
-    position: absolute;
     max-width: 1000px;
     min-width: 600px;
+    margin-bottom: 50px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -30%);
 }
 
 
