@@ -122,3 +122,20 @@ EOF
 <p align="center">
   <img src="https://raw.githubusercontent.com/Starodybczev/Vacuum-Book-Electronic-Guide-App/main/screen/skell.gif" width="700" />
 </p>
+
+---
+
+## Author
+
+<div align="center">
+  <table>
+    <tr>
+      <td style="border: none;">
+        <img src="public/channels4_profile.jpg" width="100" style="border-radius: 50%;" />
+      </td>
+      <td style="border: none; vertical-align: middle;">
+        <h1>Viktor Starodubczev</h1>
+      </td>
+    </tr>
+  </table>
+</div>
