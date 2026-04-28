@@ -16,7 +16,7 @@ cat << "EOF" > README.md
 
 ## 📱 Overview
 
-**ExcelFlow** is a modern web application for working with Excel files прямо в браузере.
+**ExcelFlow** is a modern for working with Excel files in the browser, enhanced with intelligent data interaction features.
 
 Upload files, edit data, manage columns, and export results — without opening Excel.
 
@@ -48,7 +48,21 @@ Upload files, edit data, manage columns, and export results — without opening 
 - 🎯 Focus on a single column  
 
 ### Export
-- 💾 Download edited data as Excel file  
+- 💾 Download edited data as Excel file
+
+
+## 🤖 AI Assistant (Rule-Based)
+
+The application includes a simple AI-like assistant based on rule-based logic.
+
+It allows users to:
+- interact with table data through structured actions
+- quickly find and filter information
+- simplify working with large datasets
+
+The assistant processes user actions and determines appropriate operations such as filtering, editing, or navigating data.
+
+This approach demonstrates basic principles of AI-agent behavior without heavy ML usage.
 
 ---
 
