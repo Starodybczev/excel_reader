@@ -131,10 +131,14 @@ EOF
   <table>
     <tr>
       <td style="border: none;">
-        <img src="public/channels4_profile.jpg" width="100" style="border-radius: 50%;" />
+        <a href="https://github.com/ваш-логин">
+          <img src="public/channels4_profile.jpg" width="100" style="border-radius: 50%;" alt="Viktor's Avatar" />
+        </a>
       </td>
       <td style="border: none; vertical-align: middle;">
-        <h1>Viktor Starodubczev</h1>
+        <a href="https://github.com/Starodybczev">
+          <span style="font-size: 24px; font-weight: bold;">Viktor Starodubczev</span>
+        </a>
       </td>
     </tr>
   </table>
