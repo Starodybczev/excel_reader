@@ -16,7 +16,7 @@ cat << "EOF" > README.md
 
 ## 📱 Overview
 
-**ExcelFlow** is a modern for working with Excel files in the browser, enhanced with intelligent data interaction features.
+**ExcelFlow** is a modern web application for working with Excel files in the browser, enhanced with intelligent data interaction features.
 
 Upload files, edit data, manage columns, and export results — without opening Excel.
 
@@ -131,7 +131,7 @@ EOF
   <table>
     <tr>
       <td style="border: none;">
-        <a href="https://github.com/ваш-логин">
+        <a href="https://github.com/Starodybczev"">
           <img src="public/channels4_profile.jpg" width="100" style="border-radius: 50%;" alt="Viktor's Avatar" />
         </a>
       </td>
